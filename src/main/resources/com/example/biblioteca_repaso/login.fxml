@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="383.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biblioteca_repaso.controllers.LoginController">
+   <children>
+      <Text layoutX="103.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BIBLIOTECA">
+         <font>
+            <Font name="Gill Sans Nova Cond Ultra Bold" size="35.0" />
+         </font>
+      </Text>
+      <Text layoutX="41.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario:">
+         <font>
+            <Font name="Gill Sans Nova Light" size="20.0" />
+         </font>
+      </Text>
+      <TextField fx:id="txt_usuario" layoutX="139.0" layoutY="87.0" prefHeight="40.0" prefWidth="204.0">
+         <font>
+            <Font name="Gill Sans Nova Light" size="20.0" />
+         </font>
+      </TextField>
+      <Text layoutX="41.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña:">
+         <font>
+            <Font name="Gill Sans Nova Light" size="20.0" />
+         </font>
+      </Text>
+      <PasswordField fx:id="pw_contrasena" layoutX="139.0" layoutY="144.0" prefHeight="40.0" prefWidth="204.0" />
+      <Button fx:id="bt_login" layoutX="205.0" layoutY="213.0" mnemonicParsing="false" onAction="#OnLogInClick" prefHeight="40.0" prefWidth="138.0" text="Iniciar sesión" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="Gill Sans Nova Light" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="bt_cancelar" layoutX="41.0" layoutY="213.0" mnemonicParsing="false" onAction="#OnCancelarClick" prefHeight="40.0" prefWidth="138.0" text="Cancelar" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="Gill Sans Nova Light" size="20.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

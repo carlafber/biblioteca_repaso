@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="383.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biblioteca_repaso.controllers.SignupController">
+   <children>
+      <Text layoutX="103.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BIBLIOTECA">
+         <font>
+            <Font name="Gill Sans Nova Cond Ultra Bold" size="35.0" />
+         </font>
+      </Text>
+      <Text layoutX="41.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
+         <font>
+            <Font name="Gill Sans Nova Light" size="20.0" />
+         </font>
+      </Text>
+      <TextField fx:id="txt_nombre" layoutX="139.0" layoutY="83.0" prefHeight="40.0" prefWidth="204.0">
+         <font>
+            <Font name="Gill Sans Nova Light" size="20.0" />
+         </font>
+      </TextField>
+      <Text layoutX="41.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:">
+         <font>
+            <Font name="Gill Sans Nova Light" size="20.0" />
+         </font>
+      </Text>
+      <TextField fx:id="txt_correo" layoutX="139.0" layoutY="139.0" prefHeight="40.0" prefWidth="204.0">
+         <font>
+            <Font name="Gill Sans Nova Light" size="20.0" />
+         </font>
+      </TextField>
+      <Text layoutX="38.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña:">
+         <font>
+            <Font name="Gill Sans Nova Light" size="20.0" />
+         </font>
+      </Text>
+      <PasswordField fx:id="pw_contrasena" layoutX="139.0" layoutY="199.0" prefHeight="40.0" prefWidth="204.0" />
+      <Text layoutX="41.0" layoutY="284.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmar:">
+         <font>
+            <Font name="Gill Sans Nova Light" size="20.0" />
+         </font>
+      </Text>
+      <PasswordField fx:id="pw_confcontrasena" layoutX="139.0" layoutY="257.0" prefHeight="40.0" prefWidth="204.0" />
+      <Button fx:id="bt_signup" layoutX="205.0" layoutY="328.0" mnemonicParsing="false" onAction="#OnSignUpClick" prefHeight="40.0" prefWidth="138.0" text="Registrarse" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="Gill Sans Nova Light" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="bt_cancelar" layoutX="41.0" layoutY="328.0" mnemonicParsing="false" onAction="#OnCancelarClick" prefHeight="40.0" prefWidth="138.0" text="Cancelar" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="Gill Sans Nova Light" size="20.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

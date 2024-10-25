@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="258.0" prefWidth="329.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biblioteca_repaso.controllers.InicioController">
+   <children>
+      <Text layoutX="76.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BIBLIOTECA">
+         <font>
+            <Font name="Gill Sans Nova Cond Ultra Bold" size="35.0" />
+         </font>
+      </Text>
+      <Text layoutX="95.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Si ya eres usuario:">
+         <font>
+            <Font name="Gill Sans Nova Light" size="20.0" />
+         </font>
+      </Text>
+      <Button fx:id="bt_login" layoutX="95.0" layoutY="109.0" mnemonicParsing="false" onAction="#OnLogInClick" prefHeight="40.0" prefWidth="138.0" text="Inicia sesión" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="Gill Sans Nova Light" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="bt_signup" layoutX="96.0" layoutY="195.0" mnemonicParsing="false" onAction="#OnSignUpClick" prefHeight="39.0" prefWidth="138.0" text="Regístrate" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="Gill Sans Nova Light" size="20.0" />
+         </font>
+      </Button>
+      <Text layoutX="143.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Si no:">
+         <font>
+            <Font name="Gill Sans Nova Light" size="20.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

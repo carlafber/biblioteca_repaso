@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biblioteca_repaso.controllers.PrincipalController">
+   <children>
+      <Text layoutX="264.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BIBLIOTECA">
+         <font>
+            <Font name="Gill Sans Nova Cond Ultra Bold" size="35.0" />
+         </font>
+      </Text>
+      <TableView fx:id="tv_biblioteca" layoutX="37.0" layoutY="97.0" prefHeight="312.0" prefWidth="633.0">
+         <columns>
+            <TableColumn fx:id="tc_titulo" prefWidth="75.0" text="Título" />
+            <TableColumn fx:id="tc_autor" prefWidth="75.0" text="Autor" />
+            <TableColumn fx:id="tc_estado" prefWidth="75.0" text="Estado" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Button fx:id="bt_libros" layoutX="132.0" layoutY="430.0" mnemonicParsing="false" onAction="#OnLibrosClick" prefHeight="39.0" prefWidth="177.0" text="Gestionar libros" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="Gill Sans Nova Light" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="bt_autores" layoutX="132.0" layoutY="492.0" mnemonicParsing="false" onAction="#OnAutoresClick" prefHeight="39.0" prefWidth="177.0" text="Gestionar autores" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="Gill Sans Nova Light" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="bt_prestamos" layoutX="399.0" layoutY="430.0" mnemonicParsing="false" onAction="#OnPrestamosClick" prefHeight="39.0" prefWidth="177.0" text="Gestionar préstamos" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="Gill Sans Nova Light" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="bt_salir" layoutX="399.0" layoutY="491.0" mnemonicParsing="false" onAction="#OnCerrarSesionClick" prefHeight="39.0" prefWidth="177.0" text="Cerrar sesión" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="Gill Sans Nova Light" size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
