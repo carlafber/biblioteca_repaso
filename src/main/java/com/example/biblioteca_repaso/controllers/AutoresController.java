@@ -1,10 +1,12 @@
 package com.example.biblioteca_repaso.controllers;
 
 import com.example.biblioteca_repaso.BibliotecaApplication;
+import com.example.biblioteca_repaso.CRUD.AutorCRUD;
 import com.example.biblioteca_repaso.util.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,11 +14,15 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class AutoresController {
+public class AutoresController implements Initializable {
 
     @FXML
     private Button bt_actualizar;
@@ -57,8 +63,15 @@ public class AutoresController {
     @FXML
     private TextField txt_nombre;
 
+    AutorCRUD autorCRUD;
+
     @FXML
     void OnActualizarClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void OnAutorClick(MouseEvent event) {
 
     }
 
@@ -89,4 +102,23 @@ public class AutoresController {
         }
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        autorCRUD = new AutorCRUD();
+        autorCRUD.crearBD();
+
+        /*tc_matricula.setCellValueFactory(new PropertyValueFactory<>("matricula"));
+        tc_marca.setCellValueFactory(new PropertyValueFactory<>("marca"));
+        tc_modelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
+        tc_tipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+
+        cargarCoches();
+
+        tv_coches.setOnMouseClicked(this::OnCocheClick);*/
+    }
+
+    /*public void cargarCoches(){
+        coches = cocheCRUD.obtenerCoches();
+        tv_coches.getItems().setAll(coches);
+    }*/
 }
