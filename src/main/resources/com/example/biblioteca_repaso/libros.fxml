@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="1106.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biblioteca_repaso.controllers.LibrosController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="1106.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biblioteca_repaso.controllers.LibrosController">
    <children>
       <Text layoutX="464.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BIBLIOTECA">
          <font>
@@ -21,10 +21,10 @@
             <Font name="Gill Sans Nova Light" size="20.0" />
          </font>
       </Text>
-      <TableView fx:id="tv_biblioteca" layoutX="37.0" layoutY="110.0" prefHeight="348.0" prefWidth="633.0">
+      <TableView fx:id="tv_biblioteca" layoutX="37.0" layoutY="110.0" onMouseClicked="#OnLibroClick" prefHeight="348.0" prefWidth="633.0">
          <columns>
-            <TableColumn fx:id="tc_titulo" prefWidth="75.0" text="Título" />
-            <TableColumn fx:id="tc_autor" prefWidth="75.0" text="Autor" />
+            <TableColumn fx:id="tc_titulo" prefWidth="151.0" text="Título" />
+            <TableColumn fx:id="tc_autor" prefWidth="102.0" text="Autor" />
             <TableColumn fx:id="tc_ano" prefWidth="75.0" text="Año" />
             <TableColumn fx:id="tc_genero" prefWidth="75.0" text="Género" />
             <TableColumn fx:id="tc_estado" prefWidth="75.0" text="Estado" />

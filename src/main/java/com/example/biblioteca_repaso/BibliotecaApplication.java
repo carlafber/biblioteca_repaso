@@ -21,3 +21,7 @@ public class BibliotecaApplication extends Application {
         launch();
     }
 }
+
+
+//"/Users/carladelafuente/java/javafx-sdk-23.0.1/lib"
+//"C:\Program Files\Java\javafx-sdk-23\lib"

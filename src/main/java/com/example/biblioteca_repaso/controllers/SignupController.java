@@ -1,6 +1,8 @@
 package com.example.biblioteca_repaso.controllers;
 
 import com.example.biblioteca_repaso.BibliotecaApplication;
+import com.example.biblioteca_repaso.CRUD.UsuarioCRUD;
+import com.example.biblioteca_repaso.classes.Usuario;
 import com.example.biblioteca_repaso.util.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,9 +36,14 @@ public class SignupController {
     @FXML
     private TextField txt_nombre;
 
+    UsuarioCRUD usuarioCRUD;
+
+    Usuario usuario;
+
+
     @FXML
     void OnCancelarClick(ActionEvent event) {
-        try{
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("inicio.fxml"));
             Parent root = fxmlLoader.load();
             InicioController controller = fxmlLoader.getController();
@@ -51,19 +58,39 @@ public class SignupController {
 
     @FXML
     void OnSignUpClick(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("principal.fxml"));
-            Parent root = fxmlLoader.load();
-            PrincipalController controller = fxmlLoader.getController();
+        if (txt_correo.getText().isEmpty() || txt_nombre.getText().isEmpty() || pw_contrasena.getText().isEmpty() || pw_confcontrasena.getText().isEmpty()) {
+            Alerta.mensajeError("Complete todos los campos.");
+        } else {
+            String nombre = txt_nombre.getText();
+            String email = txt_correo.getText();
+            if (!pw_contrasena.getText().equals(pw_confcontrasena.getText())) {
+                Alerta.mensajeError("Las contraseñas no coinciden, inténtelo de nuevo.");
+                pw_contrasena.clear();
+                pw_confcontrasena.clear();
+            } else {
+                String contrasena = pw_contrasena.getText();
+                usuario = new Usuario(nombre, email, contrasena);
 
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) bt_signup.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
+                usuarioCRUD = new UsuarioCRUD();
+                if (usuarioCRUD.existeUsuario(usuario)) {
+                    Alerta.mensajeError("Ya existe este usuario: " + usuario.getNombre() + ". Inicie sesión.");
+                } else {
+                    usuarioCRUD.insertarUsuario(usuario);
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("principal.fxml"));
+                        Parent root = fxmlLoader.load();
+                        PrincipalController controller = fxmlLoader.getController();
 
-        } catch (IOException e) {
-            Alerta.mensajeError(e.getMessage());
+                        Scene scene = new Scene(root);
+                        Stage stage = (Stage) bt_signup.getScene().getWindow();
+                        stage.setScene(scene);
+                        stage.show();
+
+                    } catch (IOException e) {
+                        Alerta.mensajeError(e.getMessage());
+                    }
+                }
+            }
         }
     }
-
 }

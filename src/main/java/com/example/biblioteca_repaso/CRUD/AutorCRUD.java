@@ -3,7 +3,9 @@ package com.example.biblioteca_repaso.CRUD;
 import com.example.biblioteca_repaso.classes.Autor;
 import com.example.biblioteca_repaso.util.Alerta;
 import com.example.biblioteca_repaso.util.Conectar;
+import com.example.biblioteca_repaso.util.LocalDateAdapter;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -11,30 +13,32 @@ import com.mongodb.client.model.Filters;
 import org.bson.Document;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class AutorCRUD {
-    MongoClient con;
-    MongoCollection<Document> collection = null;
-    String json;
-    Document doc;
+    private MongoClient con;
+    private MongoCollection<Document> collection = null;
+    private String json;
+    private Document doc;
 
-    public void crearBD(){
+    public void crearBD() {
         try {
             con = Conectar.conectar();
 
             MongoDatabase database = con.getDatabase("biblioteca");
 
-            //creando una coleccion
+            // creando una colección
             database.createCollection("autores");
 
-            //Inserto un documento en la coleccion autores
+            // Inserto un documento en la colección autores
             collection = database.getCollection("autores");
 
             if (collection.countDocuments() == 0) {
                 insertarAutorPrueba();
             }
-
 
         } catch (Exception exception) {
             Alerta.mensajeError(exception.getClass().getName() + ": " + exception.getMessage());
@@ -43,15 +47,12 @@ public class AutorCRUD {
 
     public boolean existeAutor(String nombre) {
         long cont_autores = collection.countDocuments(Filters.eq("nombre", nombre));
-        if(cont_autores > 0){
-            return true;
-        }
-        return false;
+        return cont_autores > 0;
     }
 
     public void insertarAutorPrueba() {
-        Autor autor1 = new Autor("Gabriel García Márquez", "Colombiana", LocalDate.of(1927, 3, 6),  Arrays.asList("Realismo Mágico", "Novela"));
-        Autor autor2 = new Autor("George Orwell", "Británica", LocalDate.of(1903, 6, 25),  Arrays.asList("Distopía", "Ensayo"));
+        Autor autor1 = new Autor("Gabriel García Márquez", "Colombiana", LocalDate.of(1927, 3, 6), Arrays.asList("Realismo Mágico", "Novela"));
+        Autor autor2 = new Autor("George Orwell", "Británica", LocalDate.of(1903, 6, 25), Arrays.asList("Distopía", "Ensayo"));
 
         insertarAutor(autor1);
         insertarAutor(autor2);
@@ -62,17 +63,53 @@ public class AutorCRUD {
             Alerta.mensajeError("Ya existe este autor: " + autor.getNombre());
             return false;
         } else {
-            Gson gson = new Gson();
-            json = gson.toJson(autor);
-            doc = Document.parse(json);
-            collection.insertOne(doc);
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                    .create();
 
-            // Verificar si el coche fue insertado correctamente
-            if (existeAutor(autor.getNombre())) {
-                return true;
-            } else {
-                return false;
-            }
+            Document doc = new Document("nombre", autor.getNombre())
+                    .append("nacionalidad", autor.getNacionalidad())
+                    .append("fecha_nacimiento", autor.getFechaNacimientoAsString())
+                    .append("generos", autor.getGeneros());
+
+            collection.insertOne(doc);
+            return existeAutor(autor.getNombre());
         }
+    }
+
+    public List<Autor> obtenerAutores() {
+        List<Autor> autores = new ArrayList<>();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                .create();
+
+        for (Document doc : collection.find()) {
+            String nombre = doc.getString("nombre");
+            String nacionalidad = doc.getString("nacionalidad");
+            LocalDate fecha_nacimiento = gson.fromJson(doc.get("fecha_nacimiento").toString(), LocalDate.class);
+            List<String> generos = (List<String>) doc.get("generos");
+            autores.add(new Autor(nombre, nacionalidad, fecha_nacimiento, generos));
+        }
+        return autores;
+    }
+
+    public List<String> obtenerNombreAutores() {
+        List<String> nombres = new ArrayList<>();
+        List<Autor> autores = obtenerAutores();
+        for (Autor autor : autores) {
+            nombres.add(autor.getNombre());
+        }
+        return nombres;
+    }
+
+    public List<String> obtenerGeneros() {
+        List<String> generos = new ArrayList<>();
+        List<Autor> autores = obtenerAutores();
+
+        for (Autor autor : autores) {
+            List<String> generosAutor = autor.getGeneros();
+            generos.addAll(generosAutor);
+        }
+        return generos;
     }
 }

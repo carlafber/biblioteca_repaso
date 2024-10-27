@@ -1,14 +1,16 @@
 package com.example.biblioteca_repaso.classes;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Autor {
     private String nombre;
     private String nacionalidad;
     private LocalDate fecha_nacimiento;
-    private List<String> generos = new ArrayList<>();
+    private List<String> generos;
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public Autor(String nombre, String nacionalidad, LocalDate fecha_nacimiento, List<String> generos) {
         this.nombre = nombre;
@@ -48,6 +50,16 @@ public class Autor {
 
     public void setGeneros(List<String> generos) {
         this.generos = generos;
+    }
+
+    // Método para serializar LocalDate a String
+    public String getFechaNacimientoAsString() {
+        return fecha_nacimiento != null ? fecha_nacimiento.format(DATE_FORMATTER) : null;
+    }
+
+    // Método para deserializar String a LocalDate
+    public static LocalDate parseFechaNacimiento(String fecha) {
+        return fecha != null && !fecha.isEmpty() ? LocalDate.parse(fecha, DATE_FORMATTER) : null;
     }
 
     @Override

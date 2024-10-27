@@ -1,20 +1,29 @@
 package com.example.biblioteca_repaso.controllers;
 
 import com.example.biblioteca_repaso.BibliotecaApplication;
+import com.example.biblioteca_repaso.CRUD.LibroCRUD;
+import com.example.biblioteca_repaso.classes.Autor;
+import com.example.biblioteca_repaso.classes.Libro;
 import com.example.biblioteca_repaso.util.Alerta;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 
-public class PrincipalController {
+public class PrincipalController implements Initializable {
 
     @FXML
     private Button bt_autores;
@@ -29,16 +38,20 @@ public class PrincipalController {
     private Button bt_salir;
 
     @FXML
-    private TableColumn<?, ?> tc_autor;
+    private TableColumn<Autor, String> tc_autor;
 
     @FXML
-    private TableColumn<?, ?> tc_estado;
+    private TableColumn<Libro, String> tc_estado;
 
     @FXML
-    private TableColumn<?, ?> tc_titulo;
+    private TableColumn<Libro, String> tc_titulo;
 
     @FXML
-    private TableView<?> tv_biblioteca;
+    private TableView<Libro> tv_biblioteca;
+
+    private LibroCRUD libroCRUD;
+
+    List<Libro> libros;
 
     @FXML
     void OnAutoresClick(ActionEvent event) {
@@ -106,4 +119,21 @@ public class PrincipalController {
         }
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        libroCRUD = new LibroCRUD();
+        libroCRUD.crearBD();
+        tc_titulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
+        tc_autor.setCellValueFactory(new PropertyValueFactory<>("autor"));
+        tc_estado.setCellValueFactory(cellData -> {Libro libro = cellData.getValue();
+            return new SimpleStringProperty(libro.isDisponible() ? "Disponible" : "No disponible");
+        });
+
+        cargarLibros();
+    }
+
+    public void cargarLibros(){
+        libros = libroCRUD.obtenerLibrosBiblioteca();
+        tv_biblioteca.getItems().setAll(libros);
+    }
 }

@@ -1,6 +1,8 @@
 package com.example.biblioteca_repaso.controllers;
 
 import com.example.biblioteca_repaso.BibliotecaApplication;
+import com.example.biblioteca_repaso.CRUD.UsuarioCRUD;
+import com.example.biblioteca_repaso.classes.Usuario;
 import com.example.biblioteca_repaso.util.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +30,10 @@ public class LoginController {
     @FXML
     private TextField txt_usuario;
 
+    UsuarioCRUD usuarioCRUD;
+
+    Usuario usuario;
+
     @FXML
     void OnCancelarClick(ActionEvent event) {
         try{
@@ -45,19 +51,34 @@ public class LoginController {
 
     @FXML
     void OnLogInClick(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("principal.fxml"));
-            Parent root = fxmlLoader.load();
-            PrincipalController controller = fxmlLoader.getController();
+        if(txt_usuario.getText().isEmpty() || pw_contrasena.getText().isEmpty()){
+            Alerta.mensajeError("Complete todos los campos.");
+        } else {
+            String email = txt_usuario.getText();
+            String contrasena = pw_contrasena.getText();
 
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) bt_login.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
+            usuario = new Usuario(email, contrasena);
 
-        } catch (IOException e) {
-            Alerta.mensajeError(e.getMessage());
+            usuarioCRUD = new UsuarioCRUD();
+            if(usuarioCRUD.existeUsuario(usuario)){
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("principal.fxml"));
+                    Parent root = fxmlLoader.load();
+                    PrincipalController controller = fxmlLoader.getController();
+
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) bt_login.getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.show();
+
+                } catch (IOException e) {
+                    Alerta.mensajeError(e.getMessage());
+                }
+            } else {
+                Alerta.mensajeError("Este usuario no existe, regístrese.");
+                txt_usuario.clear();
+                pw_contrasena.clear();
+            }
         }
     }
-
 }
