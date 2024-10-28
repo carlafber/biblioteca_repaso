@@ -103,7 +103,7 @@ public class AutorCRUD {
 
     public List<String> obtenerGenerosAutor(String nombreAutor) {
         List<String> generos = new ArrayList<>();
-        List<Autor> autores = obtenerAutores();  // Método que obtiene la lista de autores
+        List<Autor> autores = obtenerAutores();  // Metodo que obtiene la lista de autores
 
         for (Autor autor : autores) {
             if (autor.getNombre().equalsIgnoreCase(nombreAutor)) {
@@ -112,6 +112,11 @@ public class AutorCRUD {
             }
         }
         return generos;
+    }
+
+
+    public void eliminarAutor(String nombre) {
+        collection.deleteOne(new Document("nombre", nombre));
     }
 
 }

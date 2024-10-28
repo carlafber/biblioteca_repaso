@@ -2,27 +2,29 @@ package com.example.biblioteca_repaso.controllers;
 
 import com.example.biblioteca_repaso.BibliotecaApplication;
 import com.example.biblioteca_repaso.CRUD.AutorCRUD;
+import com.example.biblioteca_repaso.classes.Autor;
 import com.example.biblioteca_repaso.util.Alerta;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AutoresController implements Initializable {
-
     @FXML
     private Button bt_actualizar;
 
@@ -43,19 +45,19 @@ public class AutoresController implements Initializable {
     private DatePicker dt_fecha;
 
     @FXML
-    private TableColumn<?, ?> tc_ano;
+    private TableColumn<Autor, LocalDate> tc_fecha;
 
     @FXML
-    private TableColumn<?, ?> tc_autor;
+    private TableColumn<Autor, String> tc_nombre;
 
     @FXML
-    private TableColumn<?, ?> tc_genero;
+    private TableColumn<Autor, String> tc_generos;
 
     @FXML
-    private TableColumn<?, ?> tc_titulo;
+    private TableColumn<Autor, String> tc_nacionalidad;
 
     @FXML
-    private TableView<?> tv_biblioteca;
+    private TableView<Autor> tv_autores;
 
     @FXML
     private TextField txt_generos;
@@ -66,7 +68,12 @@ public class AutoresController implements Initializable {
     @FXML
     private TextField txt_nombre;
 
-    AutorCRUD autorCRUD;
+    private AutorCRUD autorCRUD;
+
+    List<Autor> autores;
+
+    private Autor autor_seleccionado;
+
 
     @FXML
     void OnActualizarClick(ActionEvent event) {
@@ -75,24 +82,48 @@ public class AutoresController implements Initializable {
 
     @FXML
     void OnAutorClick(MouseEvent event) {
-
+        autor_seleccionado = tv_autores.getSelectionModel().getSelectedItem();
+        if (autor_seleccionado != null) {
+            txt_nombre.setText(autor_seleccionado.getNombre());
+            txt_nacionalidad.setText(autor_seleccionado.getNacionalidad());
+            dt_fecha.setValue(autor_seleccionado.getFecha_nacimiento());
+            txt_generos.setText(String.join(",", autor_seleccionado.getGeneros()));
+        }
     }
 
 
     @FXML
     void OnCancelarClick(ActionEvent event) {
-
+        limpiarCampos();
     }
 
 
     @FXML
     void OnEliminarClick(ActionEvent event) {
-
+        if(autor_seleccionado == null){
+            Alerta.mensajeError("Seleccione un autor para poder eliminarlo.");
+        } else {
+            autorCRUD.eliminarAutor(autor_seleccionado.getNombre());
+            cargarAutores();
+            Alerta.mensajeInfo("ÉXITO", "Autor eliminado correctamente.");
+            limpiarCampos();
+        }
     }
 
     @FXML
     void OnNuevoClick(ActionEvent event) {
-
+        if (txt_nombre.getText().isEmpty() || txt_nacionalidad.getText().isEmpty() || txt_generos.getText().isEmpty() || dt_fecha.getValue() == null) {
+            Alerta.mensajeError("Complete todos los campos, por favor.");
+        } else {
+            String genero_seleccionado = txt_generos.getText();
+            List<String> generos = Arrays.asList(genero_seleccionado.split(","));
+            Autor autor_nuevo = new Autor(txt_nombre.getText(), txt_nacionalidad.getText(), dt_fecha.getValue(), generos);
+            if (autorCRUD.insertarAutor(autor_nuevo)) {
+                cargarAutores();
+                Alerta.mensajeInfo("ÉXITO", "Autor insertado correctamente.");
+                limpiarCampos();
+            }
+        }
     }
 
     @FXML
@@ -117,18 +148,26 @@ public class AutoresController implements Initializable {
         autorCRUD = new AutorCRUD();
         autorCRUD.AutorCRUD();
 
-        /*tc_matricula.setCellValueFactory(new PropertyValueFactory<>("matricula"));
-        tc_marca.setCellValueFactory(new PropertyValueFactory<>("marca"));
-        tc_modelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
-        tc_tipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+        tc_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        tc_nacionalidad.setCellValueFactory(new PropertyValueFactory<>("nacionalidad"));
+        tc_fecha.setCellValueFactory(new PropertyValueFactory<>("fecha_nacimiento"));
+        tc_generos.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGenerosString()));
 
-        cargarCoches();
+        cargarAutores();
 
-        tv_coches.setOnMouseClicked(this::OnCocheClick);*/
+        tv_autores.setOnMouseClicked(this::OnAutorClick);
+
     }
 
-    /*public void cargarCoches(){
-        coches = cocheCRUD.obtenerCoches();
-        tv_coches.getItems().setAll(coches);
-    }*/
+    public void cargarAutores(){
+        autores = autorCRUD.obtenerAutores();
+        tv_autores.getItems().setAll(autores);
+    }
+
+    public void limpiarCampos(){
+        txt_nombre.clear();
+        txt_nacionalidad.clear();
+        dt_fecha.setValue(null);
+        txt_generos.clear();
+    }
 }

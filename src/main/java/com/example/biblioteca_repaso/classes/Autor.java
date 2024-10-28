@@ -62,13 +62,18 @@ public class Autor {
         return fecha != null && !fecha.isEmpty() ? LocalDate.parse(fecha, DATE_FORMATTER) : null;
     }
 
+    public String getGenerosString() {
+        return String.join(", ", generos);
+    }
+
+
     @Override
     public String toString() {
         return "Autor{" +
                 "nombre='" + nombre + '\'' +
                 ", nacionalidad='" + nacionalidad + '\'' +
                 ", fecha_nacimiento=" + fecha_nacimiento +
-                ", generos=" + generos +
+                ", generos=" + generos.toString() +
                 '}';
     }
 }

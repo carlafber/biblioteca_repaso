@@ -22,7 +22,7 @@
             <Font name="Gill Sans Nova Light" size="20.0" />
          </font>
       </Text>
-      <TableView fx:id="tv_biblioteca" layoutX="27.0" layoutY="110.0" onMouseClicked="#OnPrestamoClick" prefHeight="348.0" prefWidth="546.0">
+      <TableView fx:id="tv_prestamos" layoutX="27.0" layoutY="110.0" onMouseClicked="#OnPrestamoClick" prefHeight="348.0" prefWidth="546.0">
          <columns>
             <TableColumn fx:id="tc_libro" prefWidth="75.0" text="Libro" />
             <TableColumn fx:id="tc_usuario" prefWidth="75.0" text="Usuario" />

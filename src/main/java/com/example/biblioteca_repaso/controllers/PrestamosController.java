@@ -12,7 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 public class PrestamosController {
-
+//prestamos de -----
+//quitar email usuario
     @FXML
     private Button bt_actualizar;
 
@@ -50,7 +51,7 @@ public class PrestamosController {
     private TableColumn<?, ?> tc_usuario;
 
     @FXML
-    private TableView<?> tv_biblioteca;
+    private TableView<?> tv_prestamos;
 
     @FXML
     private TextField txt_email;

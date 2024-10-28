@@ -68,7 +68,7 @@ public class LibrosController implements Initializable {
     private TableColumn<Libro, String> tc_titulo;
 
     @FXML
-    private TableView<Libro> tv_biblioteca;
+    private TableView<Libro> tv_libros;
 
     @FXML
     private TextField txt_ano;
@@ -158,7 +158,7 @@ public class LibrosController implements Initializable {
 
     @FXML
     void OnLibroClick(MouseEvent event) {
-        libro_seleccionado = tv_biblioteca.getSelectionModel().getSelectedItem();
+        libro_seleccionado = tv_libros.getSelectionModel().getSelectedItem();
         if (libro_seleccionado != null) {
             txt_titulo.setText(libro_seleccionado.getTitulo());
             cb_autores.setValue(libro_seleccionado.getAutor());
@@ -187,7 +187,7 @@ public class LibrosController implements Initializable {
 
         cargarLibros();
 
-        tv_biblioteca.setOnMouseClicked(this::OnLibroClick);
+        tv_libros.setOnMouseClicked(this::OnLibroClick);
     }
 
     public void actualizarGeneros() {
@@ -202,7 +202,7 @@ public class LibrosController implements Initializable {
 
     public void cargarLibros(){
         libros = libroCRUD.obtenerLibros();
-        tv_biblioteca.getItems().setAll(libros);
+        tv_libros.getItems().setAll(libros);
     }
 
     public void limpiarCampos(){
