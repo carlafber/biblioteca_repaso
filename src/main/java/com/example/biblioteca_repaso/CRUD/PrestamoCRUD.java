@@ -8,10 +8,10 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
 public class PrestamoCRUD {
-    MongoClient con;
-    MongoCollection<Document> collection = null;
-    String json;
-    Document doc;
+    private MongoClient con;
+    private MongoCollection<Document> collection = null;
+    private String json;
+    private Document doc;
 
     public void crearBD(){
         try {

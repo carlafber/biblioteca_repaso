@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="1005.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biblioteca_repaso.controllers.AutoresController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="472.0" prefWidth="1005.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biblioteca_repaso.controllers.AutoresController">
    <children>
       <Text layoutX="414.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BIBLIOTECA">
          <font>
@@ -32,58 +32,63 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Text layoutX="602.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
+      <Text layoutX="602.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
          <font>
             <Font name="Gill Sans Nova Light" size="20.0" />
          </font>
       </Text>
-      <TextField fx:id="txt_nombre" layoutX="747.0" layoutY="110.0" prefHeight="40.0" prefWidth="204.0">
+      <TextField fx:id="txt_nombre" layoutX="747.0" layoutY="70.0" prefHeight="40.0" prefWidth="204.0">
          <font>
             <Font name="Gill Sans Nova Light" size="20.0" />
          </font>
       </TextField>
-      <Text layoutX="604.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nacionalidad:">
+      <Text layoutX="604.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nacionalidad:">
          <font>
             <Font name="Gill Sans Nova Light" size="20.0" />
          </font>
       </Text>
-      <TextField fx:id="txt_nacionalidad" layoutX="748.0" layoutY="166.0" prefHeight="40.0" prefWidth="204.0">
+      <TextField fx:id="txt_nacionalidad" layoutX="748.0" layoutY="126.0" prefHeight="40.0" prefWidth="204.0">
          <font>
             <Font name="Gill Sans Nova Light" size="20.0" />
          </font>
       </TextField>
-      <Text layoutX="605.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha nacimiento:">
+      <Text layoutX="605.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha nacimiento:">
          <font>
             <Font name="Gill Sans Nova Light" size="20.0" />
          </font>
       </Text>
-      <DatePicker fx:id="dt_fecha" layoutX="748.0" layoutY="224.0" prefHeight="40.0" prefWidth="204.0" />
-      <Text layoutX="605.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Géneros:">
+      <DatePicker fx:id="dt_fecha" layoutX="748.0" layoutY="184.0" prefHeight="40.0" prefWidth="204.0" />
+      <Text layoutX="605.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Géneros:">
          <font>
             <Font name="Gill Sans Nova Light" size="20.0" />
          </font>
       </Text>
-      <TextField fx:id="txt_generos" layoutX="748.0" layoutY="280.0" prefHeight="40.0" prefWidth="204.0">
+      <TextField fx:id="txt_generos" layoutX="748.0" layoutY="240.0" prefHeight="40.0" prefWidth="204.0">
          <font>
             <Font name="Gill Sans Nova Light" size="20.0" />
          </font>
       </TextField>
-      <Button fx:id="bt_nuevo" layoutX="610.0" layoutY="352.0" mnemonicParsing="false" onAction="#OnNuevoClick" prefHeight="39.0" prefWidth="138.0" text="Nuevo autor" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="bt_nuevo" layoutX="607.0" layoutY="299.0" mnemonicParsing="false" onAction="#OnNuevoClick" prefHeight="39.0" prefWidth="138.0" text="Nuevo autor" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Gill Sans Nova Light" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="bt_actualizar" layoutX="811.0" layoutY="352.0" mnemonicParsing="false" onAction="#OnActualizarClick" prefHeight="39.0" prefWidth="138.0" text="Actualizar autor" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="bt_actualizar" layoutX="817.0" layoutY="299.0" mnemonicParsing="false" onAction="#OnActualizarClick" prefHeight="39.0" prefWidth="138.0" text="Actualizar autor" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Gill Sans Nova Light" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="bt_eliminar" layoutX="606.0" layoutY="419.0" mnemonicParsing="false" onAction="#OnEliminarClick" prefHeight="39.0" prefWidth="138.0" text="Eliminar autor" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="bt_eliminar" layoutX="607.0" layoutY="357.0" mnemonicParsing="false" onAction="#OnEliminarClick" prefHeight="39.0" prefWidth="138.0" text="Eliminar autor" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Gill Sans Nova Light" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="bt_volver" layoutX="811.0" layoutY="419.0" mnemonicParsing="false" onAction="#OnVolverClick" prefHeight="39.0" prefWidth="138.0" text="VOLVER" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="bt_volver" layoutX="712.0" layoutY="407.0" mnemonicParsing="false" onAction="#OnVolverClick" prefHeight="39.0" prefWidth="138.0" text="VOLVER" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="Gill Sans Nova Light" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="bt_cancelar" layoutX="817.0" layoutY="357.0" mnemonicParsing="false" onAction="#OnCancelarClick" prefHeight="39.0" prefWidth="138.0" text="Cancelar" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Gill Sans Nova Light" size="18.0" />
          </font>

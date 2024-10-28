@@ -52,12 +52,12 @@ public class Autor {
         this.generos = generos;
     }
 
-    // Método para serializar LocalDate a String
+    //serializar LocalDate a String
     public String getFechaNacimientoAsString() {
         return fecha_nacimiento != null ? fecha_nacimiento.format(DATE_FORMATTER) : null;
     }
 
-    // Método para deserializar String a LocalDate
+    //deserializar String a LocalDate
     public static LocalDate parseFechaNacimiento(String fecha) {
         return fecha != null && !fecha.isEmpty() ? LocalDate.parse(fecha, DATE_FORMATTER) : null;
     }

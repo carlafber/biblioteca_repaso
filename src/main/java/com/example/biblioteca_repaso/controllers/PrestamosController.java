@@ -1,26 +1,23 @@
 package com.example.biblioteca_repaso.controllers;
 
-import com.example.biblioteca_repaso.BibliotecaApplication;
-import com.example.biblioteca_repaso.util.Alerta;
+import com.example.biblioteca_repaso.classes.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
-import java.io.IOException;
+import javafx.scene.input.MouseEvent;
 
 public class PrestamosController {
 
     @FXML
     private Button bt_actualizar;
+
+    @FXML
+    private Button bt_cancelar;
 
     @FXML
     private Button bt_eliminar;
@@ -58,8 +55,15 @@ public class PrestamosController {
     @FXML
     private TextField txt_email;
 
+    Usuario usuario;
+
     @FXML
     void OnActualizarClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void OnCancelarClick(ActionEvent event) {
 
     }
 
@@ -74,20 +78,17 @@ public class PrestamosController {
     }
 
     @FXML
+    void OnPrestamoClick(MouseEvent event) {
+
+    }
+
+    @FXML
     void OnVolverClick(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("principal.fxml"));
-            Parent root = fxmlLoader.load();
-            PrincipalController controller = fxmlLoader.getController();
 
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) bt_volver.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
+    }
 
-        } catch (IOException e) {
-            Alerta.mensajeError(e.getMessage());
-        }
+    public void obtenerUsuario(Usuario usuario_login) {
+        usuario = usuario_login;
     }
 
 }

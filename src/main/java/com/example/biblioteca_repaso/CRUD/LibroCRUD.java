@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LibroCRUD {
-    MongoClient con;
-    MongoCollection<Document> collection = null;
-    String json;
-    Document doc;
+    private MongoClient con;
+    private MongoCollection<Document> collection = null;
+    private String json;
+    private Document doc;
 
-    public void crearBD(){
+    public void LibroCRUD(){
         try {
             con = Conectar.conectar();
 
@@ -106,12 +106,23 @@ public class LibroCRUD {
         Gson gson = new Gson();
 
         for (Document doc : collection.find()) {
-            System.out.println("Documento recuperado: " + doc.toJson()); // Depuración
-
             Libro libro = gson.fromJson(doc.toJson(), Libro.class);
             libros.add(libro);
         }
 
         return libros;
+    }
+
+    public void eliminarLibro(String titulo) {
+        collection.deleteOne(new Document("titulo", titulo));
+    }
+
+    public void modificarLibro(Libro libro) {
+        Document doc = new Document("autor", libro.getAutor())
+                .append("ano_publicacion", libro.getAno_publicacion())
+                .append("disponible", libro.isDisponible())
+                .append("genero", libro.getGenero());
+
+        collection.updateOne(Filters.eq("titulo", libro.getTitulo()), new Document("$set", doc));
     }
 }

@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="486.0" prefWidth="1005.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biblioteca_repaso.controllers.PrestamosController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="479.0" prefWidth="1005.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biblioteca_repaso.controllers.PrestamosController">
    <children>
       <Text layoutX="414.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BIBLIOTECA">
          <font>
@@ -22,7 +22,7 @@
             <Font name="Gill Sans Nova Light" size="20.0" />
          </font>
       </Text>
-      <TableView fx:id="tv_biblioteca" layoutX="27.0" layoutY="110.0" prefHeight="348.0" prefWidth="546.0">
+      <TableView fx:id="tv_biblioteca" layoutX="27.0" layoutY="110.0" onMouseClicked="#OnPrestamoClick" prefHeight="348.0" prefWidth="546.0">
          <columns>
             <TableColumn fx:id="tc_libro" prefWidth="75.0" text="Libro" />
             <TableColumn fx:id="tc_usuario" prefWidth="75.0" text="Usuario" />
@@ -33,50 +33,55 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Text layoutX="602.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Libro">
+      <Text layoutX="599.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Libro">
          <font>
             <Font name="Gill Sans Nova Light" size="20.0" />
          </font>
       </Text>
-      <ComboBox fx:id="cb_libros" layoutX="748.0" layoutY="110.0" prefHeight="40.0" prefWidth="204.0" />
-      <Text layoutX="604.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email usuario:">
+      <ComboBox fx:id="cb_libros" layoutX="745.0" layoutY="68.0" prefHeight="40.0" prefWidth="204.0" />
+      <Text layoutX="601.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email usuario:">
          <font>
             <Font name="Gill Sans Nova Light" size="20.0" />
          </font>
       </Text>
-      <TextField fx:id="txt_email" layoutX="748.0" layoutY="166.0" prefHeight="40.0" prefWidth="204.0">
+      <TextField fx:id="txt_email" layoutX="745.0" layoutY="124.0" prefHeight="40.0" prefWidth="204.0">
          <font>
             <Font name="Gill Sans Nova Light" size="20.0" />
          </font>
       </TextField>
-      <Text layoutX="605.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha préstamo:">
+      <Text layoutX="602.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha préstamo:">
          <font>
             <Font name="Gill Sans Nova Light" size="20.0" />
          </font>
       </Text>
-      <DatePicker fx:id="dt_fprestamo" layoutX="748.0" layoutY="224.0" prefHeight="40.0" prefWidth="204.0" />
-      <Text layoutX="605.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha devolución:">
+      <DatePicker fx:id="dt_fprestamo" layoutX="745.0" layoutY="182.0" prefHeight="40.0" prefWidth="204.0" />
+      <Text layoutX="602.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha devolución:">
          <font>
             <Font name="Gill Sans Nova Light" size="20.0" />
          </font>
       </Text>
-      <DatePicker fx:id="dt_fdevolucion" layoutX="748.0" layoutY="279.0" prefHeight="40.0" prefWidth="204.0" />
-      <Button fx:id="bt_nuevo" layoutX="599.0" layoutY="352.0" mnemonicParsing="false" onAction="#OnNuevoClick" prefHeight="39.0" prefWidth="169.0" text="Nuevo préstamo" textAlignment="CENTER" wrapText="true">
+      <DatePicker fx:id="dt_fdevolucion" layoutX="745.0" layoutY="237.0" prefHeight="40.0" prefWidth="204.0" />
+      <Button fx:id="bt_nuevo" layoutX="598.0" layoutY="304.0" mnemonicParsing="false" onAction="#OnNuevoClick" prefHeight="39.0" prefWidth="169.0" text="Nuevo préstamo" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Gill Sans Nova Light" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="bt_actualizar" layoutX="802.0" layoutY="352.0" mnemonicParsing="false" onAction="#OnActualizarClick" prefHeight="39.0" prefWidth="169.0" text="Actualizar prestámo" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="bt_actualizar" layoutX="801.0" layoutY="304.0" mnemonicParsing="false" onAction="#OnActualizarClick" prefHeight="39.0" prefWidth="169.0" text="Actualizar prestámo" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Gill Sans Nova Light" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="bt_eliminar" layoutX="599.0" layoutY="409.0" mnemonicParsing="false" onAction="#OnEliminarClick" prefHeight="39.0" prefWidth="169.0" text="Eliminar préstamo" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="bt_eliminar" layoutX="598.0" layoutY="367.0" mnemonicParsing="false" onAction="#OnEliminarClick" prefHeight="39.0" prefWidth="169.0" text="Eliminar préstamo" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Gill Sans Nova Light" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="bt_volver" layoutX="802.0" layoutY="409.0" mnemonicParsing="false" onAction="#OnVolverClick" prefHeight="39.0" prefWidth="169.0" text="VOLVER" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="bt_volver" layoutX="699.0" layoutY="425.0" mnemonicParsing="false" onAction="#OnVolverClick" prefHeight="39.0" prefWidth="169.0" text="VOLVER" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="Gill Sans Nova Light" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="bt_cancelar" layoutX="801.0" layoutY="367.0" mnemonicParsing="false" onAction="#OnCancelarClick" prefHeight="39.0" prefWidth="169.0" text="Cancelar" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="Gill Sans Nova Light" size="18.0" />
          </font>

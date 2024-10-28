@@ -4,6 +4,7 @@ import com.example.biblioteca_repaso.BibliotecaApplication;
 import com.example.biblioteca_repaso.CRUD.LibroCRUD;
 import com.example.biblioteca_repaso.classes.Autor;
 import com.example.biblioteca_repaso.classes.Libro;
+import com.example.biblioteca_repaso.classes.Usuario;
 import com.example.biblioteca_repaso.util.Alerta;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -52,6 +53,8 @@ public class PrincipalController implements Initializable {
     private LibroCRUD libroCRUD;
 
     List<Libro> libros;
+
+    Usuario usuario;
 
     @FXML
     void OnAutoresClick(ActionEvent event) {
@@ -108,6 +111,7 @@ public class PrincipalController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("prestamos.fxml"));
             Parent root = fxmlLoader.load();
             PrestamosController controller = fxmlLoader.getController();
+            controller.obtenerUsuario(usuario);
 
             Scene scene = new Scene(root);
             Stage stage = (Stage) bt_prestamos.getScene().getWindow();
@@ -122,7 +126,7 @@ public class PrincipalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         libroCRUD = new LibroCRUD();
-        libroCRUD.crearBD();
+        libroCRUD.LibroCRUD();
         tc_titulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
         tc_autor.setCellValueFactory(new PropertyValueFactory<>("autor"));
         tc_estado.setCellValueFactory(cellData -> {Libro libro = cellData.getValue();
@@ -135,5 +139,10 @@ public class PrincipalController implements Initializable {
     public void cargarLibros(){
         libros = libroCRUD.obtenerLibrosBiblioteca();
         tv_biblioteca.getItems().setAll(libros);
+    }
+
+
+    public void obtenerUsuario(Usuario usuario_login) {
+        usuario = usuario_login;
     }
 }

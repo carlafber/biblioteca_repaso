@@ -14,7 +14,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -26,6 +25,10 @@ public class AutoresController implements Initializable {
 
     @FXML
     private Button bt_actualizar;
+
+    @FXML
+    private Button bt_cancelar;
+
 
     @FXML
     private Button bt_eliminar;
@@ -75,6 +78,13 @@ public class AutoresController implements Initializable {
 
     }
 
+
+    @FXML
+    void OnCancelarClick(ActionEvent event) {
+
+    }
+
+
     @FXML
     void OnEliminarClick(ActionEvent event) {
 
@@ -105,7 +115,7 @@ public class AutoresController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         autorCRUD = new AutorCRUD();
-        autorCRUD.crearBD();
+        autorCRUD.AutorCRUD();
 
         /*tc_matricula.setCellValueFactory(new PropertyValueFactory<>("matricula"));
         tc_marca.setCellValueFactory(new PropertyValueFactory<>("marca"));

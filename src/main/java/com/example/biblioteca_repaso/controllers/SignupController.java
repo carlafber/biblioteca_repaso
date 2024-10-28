@@ -72,10 +72,11 @@ public class SignupController {
                 usuario = new Usuario(nombre, email, contrasena);
 
                 usuarioCRUD = new UsuarioCRUD();
-                if (usuarioCRUD.existeUsuario(usuario)) {
+                if (usuarioCRUD.existeUsuario(usuario.getEmail())) {
                     Alerta.mensajeError("Ya existe este usuario: " + usuario.getNombre() + ". Inicie sesión.");
                 } else {
                     usuarioCRUD.insertarUsuario(usuario);
+                    Alerta.mensajeInfo("ÉXITO", "Usuario registrado correctamente.");
                     try {
                         FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("principal.fxml"));
                         Parent root = fxmlLoader.load();

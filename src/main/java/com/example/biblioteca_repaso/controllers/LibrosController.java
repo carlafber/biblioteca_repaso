@@ -35,6 +35,9 @@ public class LibrosController implements Initializable {
     private Button bt_actualizar;
 
     @FXML
+    private Button bt_cancelar;
+
+    @FXML
     private Button bt_eliminar;
 
     @FXML
@@ -83,17 +86,57 @@ public class LibrosController implements Initializable {
 
     @FXML
     void OnActualizarClick(ActionEvent event) {
+        if (libro_seleccionado == null) {
+            Alerta.mensajeError("Seleccione un coche de la tabla para poder modificarlo.");
+        } else {
+            libro_seleccionado.setAutor(cb_autores.getValue());
+            libro_seleccionado.setAno_publicacion(Integer.parseInt(txt_ano.getText()));
+            libro_seleccionado.setDisponible(true);
+            libro_seleccionado.setGenero(cb_generos.getValue());
 
+            libroCRUD.modificarLibro(libro_seleccionado);
+
+            cargarLibros();
+            Alerta.mensajeInfo("ÉXITO", "Coche modificado correctamente.");
+        }
+    }
+
+    @FXML
+    void OnCancelarClick(ActionEvent event) {
+        limpiarCampos();
     }
 
     @FXML
     void OnEliminarClick(ActionEvent event) {
-
+        if(libro_seleccionado == null){
+            Alerta.mensajeError("Seleccione un libro para poder eliminarlo.");
+        } else {
+            libroCRUD.eliminarLibro(libro_seleccionado.getTitulo());
+            cargarLibros();
+            Alerta.mensajeInfo("ÉXITO", "Libro eliminado correctamente.");
+            limpiarCampos();
+        }
     }
 
     @FXML
-    void OnNuevoClick(ActionEvent event) {
+    void OnGenerosClick(MouseEvent event) {
+        actualizarGeneros();
+    }
 
+
+    @FXML
+    void OnNuevoClick(ActionEvent event) {
+        if(txt_ano.getText().isEmpty() || txt_titulo.getText().isEmpty() || cb_autores.getValue() == null || cb_generos.getValue() == null){
+            Alerta.mensajeError("Complete todos los campos, por favor.");
+        } else {
+            Libro libro_nuevo = new Libro(txt_titulo.getText(), cb_autores.getValue(), Integer.parseInt(txt_ano.getText()), true, cb_generos.getValue());
+            if(libroCRUD.insertarLibro(libro_nuevo)){
+                cargarLibros();
+                Alerta.mensajeInfo("ÉXITO", "Libro insertado correctamente.");
+                limpiarCampos();
+            }
+            txt_titulo.clear();
+        }
     }
 
     @FXML
@@ -128,10 +171,11 @@ public class LibrosController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         libroCRUD = new LibroCRUD();
         autorCRUD = new AutorCRUD();
-        libroCRUD.crearBD();
-        autorCRUD.crearBD();
+        libroCRUD.LibroCRUD();
+        autorCRUD.AutorCRUD();
 
-        cargarCB();
+        List<String> autores = autorCRUD.obtenerNombreAutores();
+        cb_autores.setItems(FXCollections.observableArrayList(autores));
 
         tc_titulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
         tc_autor.setCellValueFactory(new PropertyValueFactory<>("autor"));
@@ -146,16 +190,25 @@ public class LibrosController implements Initializable {
         tv_biblioteca.setOnMouseClicked(this::OnLibroClick);
     }
 
-    public void cargarCB(){
-        List<String> autores = autorCRUD.obtenerNombreAutores();
-        cb_autores.setItems(FXCollections.observableArrayList(autores));
-
-        List<String> generos = autorCRUD.obtenerGeneros();
-        cb_generos.setItems(FXCollections.observableArrayList(generos));
+    public void actualizarGeneros() {
+        String autor_seleccionado = cb_autores.getValue();
+        if (autor_seleccionado != null) {
+            List<String> generos = autorCRUD.obtenerGenerosAutor(autor_seleccionado);
+            cb_generos.setItems(FXCollections.observableArrayList(generos));
+        } else {
+            cb_generos.getItems().clear();
+        }
     }
 
     public void cargarLibros(){
         libros = libroCRUD.obtenerLibros();
         tv_biblioteca.getItems().setAll(libros);
+    }
+
+    public void limpiarCampos(){
+        cb_autores.setValue(null);
+        cb_generos.setValue(null);
+        txt_ano.clear();
+        txt_titulo.clear();
     }
 }

@@ -60,24 +60,31 @@ public class LoginController {
             usuario = new Usuario(email, contrasena);
 
             usuarioCRUD = new UsuarioCRUD();
-            if(usuarioCRUD.existeUsuario(usuario)){
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("principal.fxml"));
-                    Parent root = fxmlLoader.load();
-                    PrincipalController controller = fxmlLoader.getController();
-
-                    Scene scene = new Scene(root);
-                    Stage stage = (Stage) bt_login.getScene().getWindow();
-                    stage.setScene(scene);
-                    stage.show();
-
-                } catch (IOException e) {
-                    Alerta.mensajeError(e.getMessage());
-                }
-            } else {
+            if(!usuarioCRUD.existeUsuario(email)){
                 Alerta.mensajeError("Este usuario no existe, regístrese.");
                 txt_usuario.clear();
                 pw_contrasena.clear();
+            } else {
+                if(usuarioCRUD.validarContrasena(usuario)){
+                    Alerta.mensajeInfo("ÉXITO", "Sesión iniciada correctamente.");
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("principal.fxml"));
+                        Parent root = fxmlLoader.load();
+                        PrincipalController controller = fxmlLoader.getController();
+                        controller.obtenerUsuario(usuario);
+
+                        Scene scene = new Scene(root);
+                        Stage stage = (Stage) bt_login.getScene().getWindow();
+                        stage.setScene(scene);
+                        stage.show();
+
+                    } catch (IOException e) {
+                        Alerta.mensajeError(e.getMessage());
+                    }
+                } else {
+                    Alerta.mensajeError("Contraseña incorrecta.");
+                    pw_contrasena.clear();
+                }
             }
         }
     }

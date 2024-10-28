@@ -13,7 +13,6 @@ import com.mongodb.client.model.Filters;
 import org.bson.Document;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,7 +23,7 @@ public class AutorCRUD {
     private String json;
     private Document doc;
 
-    public void crearBD() {
+    public void AutorCRUD() {
         try {
             con = Conectar.conectar();
 
@@ -102,14 +101,17 @@ public class AutorCRUD {
         return nombres;
     }
 
-    public List<String> obtenerGeneros() {
+    public List<String> obtenerGenerosAutor(String nombreAutor) {
         List<String> generos = new ArrayList<>();
-        List<Autor> autores = obtenerAutores();
+        List<Autor> autores = obtenerAutores();  // Método que obtiene la lista de autores
 
         for (Autor autor : autores) {
-            List<String> generosAutor = autor.getGeneros();
-            generos.addAll(generosAutor);
+            if (autor.getNombre().equalsIgnoreCase(nombreAutor)) {
+                generos.addAll(autor.getGeneros());
+                break; // Detener el bucle una vez que se encuentra el autor
+            }
         }
         return generos;
     }
+
 }

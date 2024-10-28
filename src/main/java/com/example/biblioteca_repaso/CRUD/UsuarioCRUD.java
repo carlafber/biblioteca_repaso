@@ -13,10 +13,10 @@ import org.mindrot.jbcrypt.BCrypt;
 
 
 public class UsuarioCRUD {
-    MongoClient con;
-    MongoCollection<Document> collection = null;
-    String json;
-    Document doc;
+    private MongoClient con;
+    private MongoCollection<Document> collection = null;
+    private String json;
+    private Document doc;
 
     public UsuarioCRUD() {
         try {
@@ -40,13 +40,15 @@ public class UsuarioCRUD {
     }
 
     public void insertarUsuariosPrueba() {
-        Usuario usuario = new Usuario("pepe@email.com", "1234");
-        insertarUsuario(usuario);
+        Usuario usuario1 = new Usuario("Carlos Pérez", "carlos.perez@example.com", "1234");
+        Usuario usuario2 = new Usuario("Ana Rodríguez", "ana.rodriguez@example.com", "Ana1999");
+        insertarUsuario(usuario1);
+        insertarUsuario(usuario2);
     }
 
 
     public boolean insertarUsuario(Usuario usuario) {
-        if (existeUsuario(usuario)) {
+        if (existeUsuario(usuario.getEmail())) {
             Alerta.mensajeError("Ya existe este usuario: " + usuario.getNombre() + ". Inicie sesión.");
             return false;
         } else {
@@ -57,7 +59,7 @@ public class UsuarioCRUD {
             collection.insertOne(doc);
 
             // Verificar si el coche fue insertado correctamente
-            if (existeUsuario(usuario)) {
+            if (existeUsuario(usuario.getEmail())) {
                 return true;
             } else {
                 return false;
@@ -65,13 +67,17 @@ public class UsuarioCRUD {
         }
     }
 
-    public boolean existeUsuario(Usuario usuario) {
+    public boolean existeUsuario(String email) {
+        Document doc = collection.find(Filters.eq("email", email)).first();
+        return doc != null;
+    }
+
+    public boolean validarContrasena(Usuario usuario) {
         Document doc = collection.find(Filters.eq("email", usuario.getEmail())).first();
         if (doc != null) {
-            String contrasena_existente = doc.getString("contraseña");
-            // Comparar la contraseña proporcionada con la almacenada
-            return BCrypt.checkpw(usuario.getContrasena(), contrasena_existente);
+            String contrasenaExistente = doc.getString("contraseña");
+            return BCrypt.checkpw(usuario.getContrasena(), contrasenaExistente);
         }
-        return false; // Usuario no encontrado
+        return false;
     }
 }

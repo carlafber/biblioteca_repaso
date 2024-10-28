@@ -27,6 +27,7 @@ public class InicioController {
             Parent root = fxmlLoader.load();
             LoginController controller = fxmlLoader.getController();
 
+
             Scene scene = new Scene(root);
             Stage stage = (Stage) bt_login.getScene().getWindow();
             stage.setScene(scene);
