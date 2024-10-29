@@ -4,7 +4,6 @@ import com.example.biblioteca_repaso.BibliotecaApplication;
 import com.example.biblioteca_repaso.CRUD.AutorCRUD;
 import com.example.biblioteca_repaso.CRUD.LibroCRUD;
 import com.example.biblioteca_repaso.CRUD.PrestamoCRUD;
-import com.example.biblioteca_repaso.classes.Libro;
 import com.example.biblioteca_repaso.classes.Usuario;
 import com.example.biblioteca_repaso.util.Alerta;
 import javafx.event.ActionEvent;
@@ -45,7 +44,7 @@ private Button bt_actualizar;
     private Button bt_volver;
 
     @FXML
-    private ComboBox<?> cb_libros;
+    private ComboBox<String> cb_libros;
 
     @FXML
     private DatePicker dt_fdevolucion;
