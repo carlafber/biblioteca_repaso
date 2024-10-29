@@ -55,7 +55,7 @@ public class UsuarioCRUD {
             String contrasena_encriptada = BCrypt.hashpw(usuario.getContrasena(), BCrypt.gensalt());
             Gson gson = new Gson();
             json = gson.toJson(usuario);
-            doc = new Document("email", usuario.getEmail()).append("contraseña", contrasena_encriptada);
+            doc = new Document("nombre", usuario.getNombre()).append("email", usuario.getEmail()).append("contraseña", contrasena_encriptada);
             collection.insertOne(doc);
 
             // Verificar si el coche fue insertado correctamente
@@ -72,12 +72,21 @@ public class UsuarioCRUD {
         return doc != null;
     }
 
-    public boolean validarContrasena(Usuario usuario) {
-        Document doc = collection.find(Filters.eq("email", usuario.getEmail())).first();
+    public boolean validarContrasena(String email, String contrasena_proporcionada) {
+        Document doc = collection.find(Filters.eq("email", email)).first();
         if (doc != null) {
-            String contrasenaExistente = doc.getString("contraseña");
-            return BCrypt.checkpw(usuario.getContrasena(), contrasenaExistente);
+            String contrasen_existente = doc.getString("contraseña");
+            return BCrypt.checkpw(contrasena_proporcionada, contrasen_existente);
         }
         return false;
+    }
+
+    public Usuario obtenerUsuario(String email) {
+        Document doc = collection.find(Filters.eq("email", email)).first();
+        if (doc != null) {
+            // Asumiendo que tu clase Usuario tiene un constructor que acepta email, contraseña y nombre
+            return new Usuario(doc.getString("nombre"), doc.getString("email"), null);
+        }
+        return null; // Usuario no encontrado
     }
 }

@@ -2,6 +2,8 @@ package com.example.biblioteca_repaso.controllers;
 
 import com.example.biblioteca_repaso.BibliotecaApplication;
 import com.example.biblioteca_repaso.CRUD.AutorCRUD;
+import com.example.biblioteca_repaso.CRUD.LibroCRUD;
+import com.example.biblioteca_repaso.CRUD.PrestamoCRUD;
 import com.example.biblioteca_repaso.classes.Autor;
 import com.example.biblioteca_repaso.util.Alerta;
 import javafx.beans.property.SimpleStringProperty;
@@ -69,6 +71,10 @@ public class AutoresController implements Initializable {
     private TextField txt_nombre;
 
     private AutorCRUD autorCRUD;
+
+    private LibroCRUD libroCRUD;
+
+    private PrestamoCRUD prestamoCRUD;
 
     List<Autor> autores;
 
@@ -146,7 +152,12 @@ public class AutoresController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         autorCRUD = new AutorCRUD();
+        libroCRUD = new LibroCRUD();
+        prestamoCRUD = new PrestamoCRUD();
         autorCRUD.AutorCRUD();
+        libroCRUD.LibroCRUD();
+        //prestamoCRUD.PrestamoCRUD();
+
 
         tc_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tc_nacionalidad.setCellValueFactory(new PropertyValueFactory<>("nacionalidad"));

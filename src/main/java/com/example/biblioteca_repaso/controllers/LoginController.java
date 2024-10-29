@@ -57,15 +57,14 @@ public class LoginController {
             String email = txt_usuario.getText();
             String contrasena = pw_contrasena.getText();
 
-            usuario = new Usuario(email, contrasena);
-
             usuarioCRUD = new UsuarioCRUD();
             if(!usuarioCRUD.existeUsuario(email)){
                 Alerta.mensajeError("Este usuario no existe, regístrese.");
                 txt_usuario.clear();
                 pw_contrasena.clear();
             } else {
-                if(usuarioCRUD.validarContrasena(usuario)){
+                usuario = usuarioCRUD.obtenerUsuario(email);
+                if(usuarioCRUD.validarContrasena(email, contrasena)){
                     Alerta.mensajeInfo("ÉXITO", "Sesión iniciada correctamente.");
                     try {
                         FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("principal.fxml"));

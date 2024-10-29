@@ -1,21 +1,36 @@
 package com.example.biblioteca_repaso.controllers;
 
+import com.example.biblioteca_repaso.BibliotecaApplication;
+import com.example.biblioteca_repaso.CRUD.AutorCRUD;
+import com.example.biblioteca_repaso.CRUD.LibroCRUD;
+import com.example.biblioteca_repaso.CRUD.PrestamoCRUD;
+import com.example.biblioteca_repaso.classes.Libro;
 import com.example.biblioteca_repaso.classes.Usuario;
+import com.example.biblioteca_repaso.util.Alerta;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
-public class PrestamosController {
-//prestamos de -----
-//quitar email usuario
-    @FXML
-    private Button bt_actualizar;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+
+public class PrestamosController implements Initializable {
+
+@FXML
+private Button bt_actualizar;
 
     @FXML
     private Button bt_cancelar;
@@ -39,6 +54,9 @@ public class PrestamosController {
     private DatePicker dt_fprestamo;
 
     @FXML
+    private Text id_nombreusuario;
+
+    @FXML
     private TableColumn<?, ?> tc_fdevolucion;
 
     @FXML
@@ -48,15 +66,15 @@ public class PrestamosController {
     private TableColumn<?, ?> tc_libro;
 
     @FXML
-    private TableColumn<?, ?> tc_usuario;
-
-    @FXML
     private TableView<?> tv_prestamos;
 
-    @FXML
-    private TextField txt_email;
+    private Usuario usuario;
 
-    Usuario usuario;
+    private LibroCRUD libroCRUD;
+
+    private AutorCRUD autorCRUD;
+
+    private PrestamoCRUD prestamoCRUD;
 
     @FXML
     void OnActualizarClick(ActionEvent event) {
@@ -85,11 +103,37 @@ public class PrestamosController {
 
     @FXML
     void OnVolverClick(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("principal.fxml"));
+            Parent root = fxmlLoader.load();
+            PrincipalController controller = fxmlLoader.getController();
 
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) bt_volver.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            Alerta.mensajeError(e.getMessage());
+        }
     }
 
     public void obtenerUsuario(Usuario usuario_login) {
-        usuario = usuario_login;
+        this.usuario = usuario_login;
+        if (this.usuario != null) {
+            id_nombreusuario.setText(usuario.getNombre());
+        } else {
+            id_nombreusuario.setText("Usuario no disponible");
+        }
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        libroCRUD = new LibroCRUD();
+        autorCRUD = new AutorCRUD();
+        prestamoCRUD = new PrestamoCRUD();
+        libroCRUD.LibroCRUD();
+        autorCRUD.AutorCRUD();
+        //prestamoCRUD.PrestamoCRUD();
+    }
 }

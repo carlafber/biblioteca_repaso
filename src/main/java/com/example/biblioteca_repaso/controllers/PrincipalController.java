@@ -54,7 +54,11 @@ public class PrincipalController implements Initializable {
 
     List<Libro> libros;
 
-    Usuario usuario;
+    private Usuario usuario;
+
+    public void obtenerUsuario(Usuario usuario_login) {
+        this.usuario = usuario_login;
+    }
 
     @FXML
     void OnAutoresClick(ActionEvent event) {
@@ -123,6 +127,7 @@ public class PrincipalController implements Initializable {
         }
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         libroCRUD = new LibroCRUD();
@@ -142,7 +147,4 @@ public class PrincipalController implements Initializable {
     }
 
 
-    public void obtenerUsuario(Usuario usuario_login) {
-        usuario = usuario_login;
-    }
 }

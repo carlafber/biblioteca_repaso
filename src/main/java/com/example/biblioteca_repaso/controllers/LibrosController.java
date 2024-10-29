@@ -3,6 +3,7 @@ package com.example.biblioteca_repaso.controllers;
 import com.example.biblioteca_repaso.BibliotecaApplication;
 import com.example.biblioteca_repaso.CRUD.AutorCRUD;
 import com.example.biblioteca_repaso.CRUD.LibroCRUD;
+import com.example.biblioteca_repaso.CRUD.PrestamoCRUD;
 import com.example.biblioteca_repaso.classes.Libro;
 import com.example.biblioteca_repaso.util.Alerta;
 import javafx.beans.property.SimpleStringProperty;
@@ -83,6 +84,8 @@ public class LibrosController implements Initializable {
     private Libro libro_seleccionado;
 
     private AutorCRUD autorCRUD;
+
+    private PrestamoCRUD prestamoCRUD;
 
     @FXML
     void OnActualizarClick(ActionEvent event) {
@@ -171,8 +174,10 @@ public class LibrosController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         libroCRUD = new LibroCRUD();
         autorCRUD = new AutorCRUD();
+        prestamoCRUD = new PrestamoCRUD();
         libroCRUD.LibroCRUD();
         autorCRUD.AutorCRUD();
+        //prestamoCRUD.PrestamoCRUD();
 
         List<String> autores = autorCRUD.obtenerNombreAutores();
         cb_autores.setItems(FXCollections.observableArrayList(autores));
