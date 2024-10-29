@@ -133,6 +133,6 @@ private Button bt_actualizar;
         prestamoCRUD = new PrestamoCRUD();
         libroCRUD.LibroCRUD();
         autorCRUD.AutorCRUD();
-        //prestamoCRUD.PrestamoCRUD();
+        prestamoCRUD.PrestamoCRUD();
     }
 }

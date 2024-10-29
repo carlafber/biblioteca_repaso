@@ -20,7 +20,6 @@ public class Conectar {
             String author = configuration.getProperty("author");
 
             final MongoClient conexion = new MongoClient(new MongoClientURI("mongodb://" + username + ":" + password + "@" + host + ":" + port + "/?authSource=" + author));
-            System.out.println("Conexión a la base de datos realizada correctamente.");
             return conexion;
         } catch (Exception e) {
             Alerta.mensajeError("Conexión Fallida\n" + e.getMessage());

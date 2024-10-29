@@ -50,7 +50,6 @@ public class LibroCRUD {
         insertarLibro(libro1);
         insertarLibro(libro2);
         insertarLibro(libro3);
-
     }
 
 

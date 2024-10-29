@@ -177,7 +177,7 @@ public class LibrosController implements Initializable {
         prestamoCRUD = new PrestamoCRUD();
         libroCRUD.LibroCRUD();
         autorCRUD.AutorCRUD();
-        //prestamoCRUD.PrestamoCRUD();
+        prestamoCRUD.PrestamoCRUD();
 
         List<String> autores = autorCRUD.obtenerNombreAutores();
         cb_autores.setItems(FXCollections.observableArrayList(autores));

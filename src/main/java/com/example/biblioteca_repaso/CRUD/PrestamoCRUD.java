@@ -13,7 +13,7 @@ public class PrestamoCRUD {
     private String json;
     private Document doc;
 
-    public void crearBD(){
+    public void PrestamoCRUD(){
         try {
             con = Conectar.conectar();
 

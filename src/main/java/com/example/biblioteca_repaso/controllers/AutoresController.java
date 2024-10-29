@@ -156,7 +156,7 @@ public class AutoresController implements Initializable {
         prestamoCRUD = new PrestamoCRUD();
         autorCRUD.AutorCRUD();
         libroCRUD.LibroCRUD();
-        //prestamoCRUD.PrestamoCRUD();
+        prestamoCRUD.PrestamoCRUD();
 
 
         tc_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
