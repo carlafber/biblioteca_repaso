@@ -66,6 +66,7 @@ public class PrincipalController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("autores.fxml"));
             Parent root = fxmlLoader.load();
             AutoresController controller = fxmlLoader.getController();
+            controller.obtenerUsuario(usuario);
 
             Scene scene = new Scene(root);
             Stage stage = (Stage) bt_autores.getScene().getWindow();
@@ -98,6 +99,7 @@ public class PrincipalController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("libros.fxml"));
             Parent root = fxmlLoader.load();
             LibrosController controller = fxmlLoader.getController();
+            controller.obtenerUsuario(usuario);
 
             Scene scene = new Scene(root);
             Stage stage = (Stage) bt_libros.getScene().getWindow();

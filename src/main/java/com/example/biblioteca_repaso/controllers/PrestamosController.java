@@ -106,6 +106,7 @@ private Button bt_actualizar;
             FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("principal.fxml"));
             Parent root = fxmlLoader.load();
             PrincipalController controller = fxmlLoader.getController();
+            controller.obtenerUsuario(usuario);
 
             Scene scene = new Scene(root);
             Stage stage = (Stage) bt_volver.getScene().getWindow();
@@ -128,11 +129,15 @@ private Button bt_actualizar;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        libroCRUD = new LibroCRUD();
+        cargarBD();
+    }
+
+    public void cargarBD(){
         autorCRUD = new AutorCRUD();
+        libroCRUD = new LibroCRUD();
         prestamoCRUD = new PrestamoCRUD();
-        libroCRUD.LibroCRUD();
         autorCRUD.AutorCRUD();
+        libroCRUD.LibroCRUD();
         prestamoCRUD.PrestamoCRUD();
     }
 }

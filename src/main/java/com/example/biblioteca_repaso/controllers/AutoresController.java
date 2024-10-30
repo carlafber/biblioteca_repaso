@@ -5,6 +5,7 @@ import com.example.biblioteca_repaso.CRUD.AutorCRUD;
 import com.example.biblioteca_repaso.CRUD.LibroCRUD;
 import com.example.biblioteca_repaso.CRUD.PrestamoCRUD;
 import com.example.biblioteca_repaso.classes.Autor;
+import com.example.biblioteca_repaso.classes.Usuario;
 import com.example.biblioteca_repaso.util.Alerta;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -80,6 +81,12 @@ public class AutoresController implements Initializable {
 
     private Autor autor_seleccionado;
 
+    private Usuario usuario;
+
+    public void obtenerUsuario(Usuario usuario_login) {
+        this.usuario = usuario_login;
+    }
+
 
     @FXML
     void OnActualizarClick(ActionEvent event) {
@@ -138,6 +145,7 @@ public class AutoresController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("principal.fxml"));
             Parent root = fxmlLoader.load();
             PrincipalController controller = fxmlLoader.getController();
+            controller.obtenerUsuario(usuario);
 
             Scene scene = new Scene(root);
             Stage stage = (Stage) bt_volver.getScene().getWindow();
@@ -151,13 +159,7 @@ public class AutoresController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        autorCRUD = new AutorCRUD();
-        libroCRUD = new LibroCRUD();
-        prestamoCRUD = new PrestamoCRUD();
-        autorCRUD.AutorCRUD();
-        libroCRUD.LibroCRUD();
-        prestamoCRUD.PrestamoCRUD();
-
+        cargarBD();
 
         tc_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tc_nacionalidad.setCellValueFactory(new PropertyValueFactory<>("nacionalidad"));
@@ -168,6 +170,15 @@ public class AutoresController implements Initializable {
 
         tv_autores.setOnMouseClicked(this::OnAutorClick);
 
+    }
+
+    public void cargarBD(){
+        autorCRUD = new AutorCRUD();
+        libroCRUD = new LibroCRUD();
+        prestamoCRUD = new PrestamoCRUD();
+        autorCRUD.AutorCRUD();
+        libroCRUD.LibroCRUD();
+        prestamoCRUD.PrestamoCRUD();
     }
 
     public void cargarAutores(){
