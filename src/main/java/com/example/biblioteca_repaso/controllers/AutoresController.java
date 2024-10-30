@@ -8,7 +8,6 @@ import com.example.biblioteca_repaso.classes.Autor;
 import com.example.biblioteca_repaso.classes.Usuario;
 import com.example.biblioteca_repaso.util.Alerta;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,7 +48,7 @@ public class AutoresController implements Initializable {
     private DatePicker dt_fecha;
 
     @FXML
-    private TableColumn<Autor, LocalDate> tc_fecha;
+    private TableColumn<Autor, String> tc_fecha;
 
     @FXML
     private TableColumn<Autor, String> tc_nombre;
@@ -175,7 +174,9 @@ public class AutoresController implements Initializable {
 
         tc_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tc_nacionalidad.setCellValueFactory(new PropertyValueFactory<>("nacionalidad"));
-        tc_fecha.setCellValueFactory(new PropertyValueFactory<>("fecha_nacimiento"));
+        tc_fecha.setCellValueFactory(cellData -> {Autor autor = cellData.getValue();
+            return new SimpleStringProperty(autor.getFecha_nacimiento_string());
+        });
         tc_generos.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGenerosString()));
 
         cargarAutores();

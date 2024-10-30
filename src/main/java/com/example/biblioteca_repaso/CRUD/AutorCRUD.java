@@ -15,7 +15,6 @@ import org.bson.Document;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class AutorCRUD {
@@ -69,7 +68,7 @@ public class AutorCRUD {
 
             Document doc = new Document("nombre", autor.getNombre())
                     .append("nacionalidad", autor.getNacionalidad())
-                    .append("fecha_nacimiento", autor.getFechaNacimientoAsString())
+                    .append("fecha_nacimiento", autor.getFecha_nacimiento_string())
                     .append("generos", autor.getGeneros());
 
             collection.insertOne(doc);
@@ -122,7 +121,7 @@ public class AutorCRUD {
 
     public void modificarAutor(Autor autor) {
         Document doc = new Document("nacionalidad", autor.getNacionalidad())
-                .append("fecha_nacimiento", autor.getFechaNacimientoAsString())
+                .append("fecha_nacimiento", autor.getFecha_nacimiento_string())
                 .append("generos", autor.getGeneros());
 
         collection.updateOne(Filters.eq("nombre", autor.getNombre()), new Document("$set", doc));

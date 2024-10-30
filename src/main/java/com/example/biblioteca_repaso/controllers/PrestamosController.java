@@ -4,8 +4,10 @@ import com.example.biblioteca_repaso.BibliotecaApplication;
 import com.example.biblioteca_repaso.CRUD.AutorCRUD;
 import com.example.biblioteca_repaso.CRUD.LibroCRUD;
 import com.example.biblioteca_repaso.CRUD.PrestamoCRUD;
+import com.example.biblioteca_repaso.classes.Prestamo;
 import com.example.biblioteca_repaso.classes.Usuario;
 import com.example.biblioteca_repaso.util.Alerta;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,12 +19,15 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -56,16 +61,16 @@ private Button bt_actualizar;
     private Text id_nombreusuario;
 
     @FXML
-    private TableColumn<?, ?> tc_fdevolucion;
+    private TableColumn<Prestamo, String> tc_fdevolucion;
 
     @FXML
-    private TableColumn<?, ?> tc_fprestamo;
+    private TableColumn<Prestamo, String> tc_fprestamo;
 
     @FXML
-    private TableColumn<?, ?> tc_libro;
+    private TableColumn<Prestamo, String> tc_libro;
 
     @FXML
-    private TableView<?> tv_prestamos;
+    private TableView<Prestamo> tv_prestamos;
 
     private Usuario usuario;
 
@@ -74,6 +79,8 @@ private Button bt_actualizar;
     private AutorCRUD autorCRUD;
 
     private PrestamoCRUD prestamoCRUD;
+
+    List<Prestamo> prestamos;
 
     @FXML
     void OnActualizarClick(ActionEvent event) {
@@ -122,6 +129,7 @@ private Button bt_actualizar;
         this.usuario = usuario_login;
         if (this.usuario != null) {
             id_nombreusuario.setText(usuario.getNombre());
+            cargarPrestamos(usuario);
         } else {
             id_nombreusuario.setText("Usuario no disponible");
         }
@@ -130,6 +138,16 @@ private Button bt_actualizar;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cargarBD();
+
+        tc_libro.setCellValueFactory(new PropertyValueFactory<>("libro"));
+        tc_fprestamo.setCellValueFactory(cellData -> {Prestamo prestamo = cellData.getValue();
+            return new SimpleStringProperty(prestamo.getFecha_prestamo_string());
+        });
+        tc_fdevolucion.setCellValueFactory(cellData -> {Prestamo prestamo = cellData.getValue();
+            return new SimpleStringProperty(prestamo.getFecha_devolucion_string());
+        });
+
+        tv_prestamos.setOnMouseClicked(this::OnPrestamoClick);
     }
 
     public void cargarBD(){
@@ -140,4 +158,12 @@ private Button bt_actualizar;
         libroCRUD.LibroCRUD();
         prestamoCRUD.PrestamoCRUD();
     }
+
+    public void cargarPrestamos(Usuario usuario){
+        prestamos = prestamoCRUD.obtenerPrestamos(usuario);
+        tv_prestamos.getItems().setAll(prestamos);
+        System.out.println(prestamos.toString());
+    }
+
+    //QUITAR HORA, SOLO DÍA
 }

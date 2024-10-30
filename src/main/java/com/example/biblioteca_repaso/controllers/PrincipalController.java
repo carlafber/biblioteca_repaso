@@ -96,7 +96,7 @@ public class PrincipalController implements Initializable {
     @FXML
     void OnLibrosClick(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("libros.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("prestamos.fxml"));
             Parent root = fxmlLoader.load();
             LibrosController controller = fxmlLoader.getController();
             controller.obtenerUsuario(usuario);

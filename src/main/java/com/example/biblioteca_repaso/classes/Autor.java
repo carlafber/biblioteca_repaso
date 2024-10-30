@@ -10,7 +10,7 @@ public class Autor {
     private LocalDate fecha_nacimiento;
     private List<String> generos;
 
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     public Autor(String nombre, String nacionalidad, LocalDate fecha_nacimiento, List<String> generos) {
         this.nombre = nombre;
@@ -53,13 +53,8 @@ public class Autor {
     }
 
     //serializar LocalDate a String
-    public String getFechaNacimientoAsString() {
+    public String getFecha_nacimiento_string() {
         return fecha_nacimiento != null ? fecha_nacimiento.format(DATE_FORMATTER) : null;
-    }
-
-    //deserializar String a LocalDate
-    public static LocalDate parseFechaNacimiento(String fecha) {
-        return fecha != null && !fecha.isEmpty() ? LocalDate.parse(fecha, DATE_FORMATTER) : null;
     }
 
     public String getGenerosString() {
@@ -72,7 +67,7 @@ public class Autor {
         return "Autor{" +
                 "nombre='" + nombre + '\'' +
                 ", nacionalidad='" + nacionalidad + '\'' +
-                ", fecha_nacimiento=" + fecha_nacimiento +
+                ", fecha_nacimiento=" + getFecha_nacimiento_string() +
                 ", generos=" + generos.toString() +
                 '}';
     }

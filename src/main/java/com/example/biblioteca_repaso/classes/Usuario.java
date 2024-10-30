@@ -11,10 +11,12 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public Usuario(String email, String contrasena) {
+    public Usuario(String nombre, String email) {
+        this.nombre = nombre;
         this.email = email;
-        this.contrasena = contrasena;
     }
+
+
 
     public String getNombre() {
         return nombre;
