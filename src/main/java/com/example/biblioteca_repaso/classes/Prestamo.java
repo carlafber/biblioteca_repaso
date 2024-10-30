@@ -1,18 +1,18 @@
 package com.example.biblioteca_repaso.classes;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Prestamo {
     private String libro;
     private Usuario usuario;
-    private LocalDateTime fecha_prestamo;
-    private LocalDateTime fecha_devolucion;
+    private LocalDate fecha_prestamo;
+    private LocalDate fecha_devolucion;
     private boolean devuelto;
 
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-    public Prestamo(String libro, Usuario usuario, LocalDateTime fecha_prestamo, LocalDateTime fecha_devolucion, boolean devuelto) {
+    public Prestamo(String libro, Usuario usuario, LocalDate fecha_prestamo, LocalDate fecha_devolucion, boolean devuelto) {
         this.libro = libro;
         this.usuario = usuario;
         this.fecha_prestamo = fecha_prestamo;
@@ -36,19 +36,19 @@ public class Prestamo {
         this.usuario = usuario;
     }
 
-    public LocalDateTime getFecha_prestamo() {
+    public LocalDate getFecha_prestamo() {
         return fecha_prestamo;
     }
 
-    public void setFecha_prestamo(LocalDateTime fecha_prestamo) {
+    public void setFecha_prestamo(LocalDate fecha_prestamo) {
         this.fecha_prestamo = fecha_prestamo;
     }
 
-    public LocalDateTime getFecha_devolucion() {
+    public LocalDate getFecha_devolucion() {
         return fecha_devolucion;
     }
 
-    public void setFecha_devolucion(LocalDateTime fecha_devolucion) {
+    public void setFecha_devolucion(LocalDate fecha_devolucion) {
         this.fecha_devolucion = fecha_devolucion;
     }
 

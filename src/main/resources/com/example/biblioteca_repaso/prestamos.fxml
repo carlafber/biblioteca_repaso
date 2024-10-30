@@ -28,9 +28,9 @@
       </Text>
       <TableView fx:id="tv_prestamos" layoutX="27.0" layoutY="110.0" onMouseClicked="#OnPrestamoClick" prefHeight="314.0" prefWidth="546.0">
          <columns>
-            <TableColumn fx:id="tc_libro" prefWidth="75.0" text="Libro" />
-            <TableColumn fx:id="tc_fprestamo" prefWidth="75.0" text="Fecha préstamo" />
-            <TableColumn fx:id="tc_fdevolucion" prefWidth="75.0" text="Fecha devolución" />
+            <TableColumn fx:id="tc_libro" prefWidth="252.0" text="Libro" />
+            <TableColumn fx:id="tc_fprestamo" prefWidth="140.0" text="Fecha préstamo" />
+            <TableColumn fx:id="tc_fdevolucion" prefWidth="140.0" text="Fecha devolución" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

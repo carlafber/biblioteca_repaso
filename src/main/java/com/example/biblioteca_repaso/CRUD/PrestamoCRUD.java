@@ -17,7 +17,7 @@ import com.mongodb.client.model.Filters;
 import org.bson.Document;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,15 +64,15 @@ public class PrestamoCRUD {
         // Crear el primer préstamo
         Prestamo prestamo1 = new Prestamo("El coronel no tiene quien le escriba",
                 new Usuario("Carlos Pérez", "carlos.perez@example.com"),
-                LocalDateTime.parse("2023-04-01 10:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                LocalDateTime.parse("2023-04-15 10:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                LocalDate.parse("2023-04-01", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                LocalDate.parse("2023-04-15", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                 true);
 
         // Crear el segundo préstamo
         Prestamo prestamo2 = new Prestamo("Cien años de soledad",
                 new Usuario("Ana Rodríguez", "ana.rodriguez@example.com"),
-                LocalDateTime.parse("2023-05-05 15:30:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                LocalDateTime.parse("2023-05-19 15:30:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                LocalDate.parse("2023-05-05", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                LocalDate.parse("2023-05-19", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                 false);
 
         insertarPrestamo(prestamo1);
@@ -94,7 +94,7 @@ public class PrestamoCRUD {
                     .append("devuelto", prestamo.isDevuelto());
 
             collection.insertOne(doc);
-            return true; // Devolver verdadero si la inserción fue exitosa
+            return true;
         }
     }
 
@@ -103,8 +103,8 @@ public class PrestamoCRUD {
 
         for (Document doc : collection.find(eq("usuario.nombre", usuario.getNombre()))) {
             String libro = doc.getString("libro");
-            LocalDateTime fecha_prestamo = LocalDateTime.parse(doc.getString("fecha_prestamo"), DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
-            LocalDateTime fecha_devolucion = LocalDateTime.parse(doc.getString("fecha_devolucion"), DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+            LocalDate fecha_prestamo = LocalDate.parse(doc.getString("fecha_prestamo"), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            LocalDate fecha_devolucion = LocalDate.parse(doc.getString("fecha_devolucion"), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             boolean devuelto = doc.getBoolean("devuelto");
 
             Prestamo prestamo = new Prestamo(libro, usuario, fecha_prestamo, fecha_devolucion, devuelto);
@@ -113,56 +113,4 @@ public class PrestamoCRUD {
 
         return prestamos;
     }
-
-    /*public void insertarPrestamoPrueba() {
-        Prestamo prestamo1 = new Prestamo("El coronel no tiene quien le escriba",
-                new Usuario("Carlos Pérez", "carlos.perez@example.com"),
-                LocalDateTime.parse("2023-04-01 10:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                LocalDateTime.parse("2023-04-15 10:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                true);
-        Prestamo prestamo2 = new Prestamo("Cien años de soledad",
-                new Usuario("Ana Rodríguez", "ana.rodriguez@example.com"),
-                LocalDateTime.parse("2023-05-05 15:30:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                LocalDateTime.parse("2023-05-19 15:30:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                false);
-
-        insertarPrestamo(prestamo1);
-        insertarPrestamo(prestamo2);
-    }
-
-    public boolean insertarPrestamo(Prestamo prestamo) {
-        if (existePrestamo(prestamo.getLibro(), prestamo.isDevuelto())) {
-            Alerta.mensajeError("Ya existe este préstamo: " + prestamo.getLibro());
-            return false;
-        } else {
-            Document usuarioDoc = new Document("nombre", prestamo.getUsuario().getNombre())
-                    .append("email", prestamo.getUsuario().getEmail());
-
-            Document doc = new Document("libro", prestamo.getLibro())
-                    .append("usuario", usuarioDoc)
-                    .append("fecha_prestamo", prestamo.getFecha_prestamo().toString())
-                    .append("fecha_devolucion", prestamo.getFecha_devolucion().toString())
-                    .append("devuelto", prestamo.isDevuelto());
-
-            collection.insertOne(doc);
-            return true; // Devolver verdadero si la inserción fue exitosa
-        }
-    }
-
-
-    public List<Prestamo> obtenerPrestamos(Usuario usuario) {
-        List<Prestamo> prestamos = new ArrayList<>();
-
-        for (Document doc : collection.find(eq("nombre", usuario.getNombre()))) {
-            String libro = doc.getString("libro");
-            LocalDateTime fecha_prestamo = LocalDateTime.parse(doc.getString("fecha_prestamo"));
-            LocalDateTime fecha_devolucion = LocalDateTime.parse(doc.getString("fecha_devolucion"));
-            boolean devuelto = doc.getBoolean("devuelto");
-
-            Prestamo prestamo = new Prestamo(libro, usuario, fecha_prestamo, fecha_devolucion, devuelto);
-            prestamos.add(prestamo);
-        }
-
-        return prestamos;
-    }*/
 }
