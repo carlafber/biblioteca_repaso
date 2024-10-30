@@ -147,6 +147,4 @@ public class PrincipalController implements Initializable {
         libros = libroCRUD.obtenerLibrosBiblioteca();
         tv_biblioteca.getItems().setAll(libros);
     }
-
-
 }
