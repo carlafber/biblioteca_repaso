@@ -32,6 +32,7 @@ public class LibroCRUD {
             //Inserto un documento en la coleccion libros
             collection = database.getCollection("libros");
 
+
             if (collection.countDocuments() == 0) {
                 insetarLibroPrueba();
             }
@@ -42,10 +43,21 @@ public class LibroCRUD {
         }
     }
 
+    public boolean libro_prestado(String titulo) {
+        PrestamoCRUD prestamoCRUD = new PrestamoCRUD();
+        return prestamoCRUD.buscarPrestamoTitulo(titulo).isDevuelto();
+    }
+
+    public void modificarDisponibilidad(String titulo, boolean disponible) {
+        collection.findOneAndUpdate(Filters.eq("titulo", titulo),new Document("$set", new Document("disponible", disponible)));
+        //collection.updateOne(Filters.eq("titulo", titulo), new Document("$set", new Document("disponible", disponible)));
+    }
+
+
     public void insetarLibroPrueba() {
-        Libro libro1 = new Libro("Cien años de soledad", "Gabriel García Márquez", 1967, true, "Realismo Mágico");
+        Libro libro1 = new Libro("Cien años de soledad", "Gabriel García Márquez", 1967, false, "Realismo Mágico");
         Libro libro2 = new Libro("1984", "George Orwell", 1949, true, "Distopía");
-        Libro libro3 = new Libro("El coronel no tiene quien le escriba", "Gabriel García Márquez", 1961, false, "Novela");
+        Libro libro3 = new Libro("El coronel no tiene quien le escriba", "Gabriel García Márquez", 1961, true, "Novela");
 
         insertarLibro(libro1);
         insertarLibro(libro2);
@@ -58,17 +70,18 @@ public class LibroCRUD {
             Alerta.mensajeError("Ya existe el libro: " + libro.getTitulo());
             return false;
         } else {
+            /*if(libro_prestado(libro.getTitulo())) {
+                libro.setDisponible(false);
+            } else {
+                libro.setDisponible(true);
+            }*/
             Gson gson = new Gson();
             json = gson.toJson(libro);
             doc = Document.parse(json);
             collection.insertOne(doc);
 
             // Verificar si el coche fue insertado correctamente
-            if (existeLibro(libro)) {
-                return true;
-            } else {
-                return false;
-            }
+            return existeLibro(libro);
         }
     }
 
@@ -110,6 +123,17 @@ public class LibroCRUD {
         }
 
         return libros;
+    }
+
+    public List<String> obtenerNombreLibros() {
+        List<String> nombres = new ArrayList<>();
+        List<Libro> libros = obtenerLibros();
+        for (Libro libro : libros) {
+            if(libro.isDisponible()){
+                nombres.add(libro.getTitulo());
+            }
+        }
+        return nombres;
     }
 
     public void eliminarLibro(String titulo) {

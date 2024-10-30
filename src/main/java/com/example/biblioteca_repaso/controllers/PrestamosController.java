@@ -4,10 +4,12 @@ import com.example.biblioteca_repaso.BibliotecaApplication;
 import com.example.biblioteca_repaso.CRUD.AutorCRUD;
 import com.example.biblioteca_repaso.CRUD.LibroCRUD;
 import com.example.biblioteca_repaso.CRUD.PrestamoCRUD;
+import com.example.biblioteca_repaso.classes.Autor;
 import com.example.biblioteca_repaso.classes.Prestamo;
 import com.example.biblioteca_repaso.classes.Usuario;
 import com.example.biblioteca_repaso.util.Alerta;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -82,6 +84,8 @@ private Button bt_actualizar;
 
     List<Prestamo> prestamos;
 
+    private Prestamo prestamo_seleccionado;
+
     @FXML
     void OnActualizarClick(ActionEvent event) {
 
@@ -104,7 +108,12 @@ private Button bt_actualizar;
 
     @FXML
     void OnPrestamoClick(MouseEvent event) {
-
+        prestamo_seleccionado = tv_prestamos.getSelectionModel().getSelectedItem();
+        if (prestamo_seleccionado != null) {
+            dt_fprestamo.setValue(prestamo_seleccionado.getFecha_prestamo());
+            dt_fdevolucion.setValue(prestamo_seleccionado.getFecha_devolucion());
+            cb_libros.setValue(prestamo_seleccionado.getLibro());
+        }
     }
 
     @FXML
@@ -147,6 +156,9 @@ private Button bt_actualizar;
             return new SimpleStringProperty(prestamo.getFecha_devolucion_string());
         });
 
+        List<String> libros = libroCRUD.obtenerNombreLibros();
+        cb_libros.setItems(FXCollections.observableArrayList(libros));
+
         tv_prestamos.setOnMouseClicked(this::OnPrestamoClick);
     }
 
@@ -162,8 +174,5 @@ private Button bt_actualizar;
     public void cargarPrestamos(Usuario usuario){
         prestamos = prestamoCRUD.obtenerPrestamos(usuario);
         tv_prestamos.getItems().setAll(prestamos);
-        System.out.println(prestamos.toString());
     }
-
-    //QUITAR HORA, SOLO DÍA
 }
