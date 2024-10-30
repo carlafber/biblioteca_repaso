@@ -15,6 +15,7 @@ import org.bson.Document;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class AutorCRUD {
@@ -119,4 +120,11 @@ public class AutorCRUD {
         collection.deleteOne(new Document("nombre", nombre));
     }
 
+    public void modificarAutor(Autor autor) {
+        Document doc = new Document("nacionalidad", autor.getNacionalidad())
+                .append("fecha_nacimiento", autor.getFechaNacimientoAsString())
+                .append("generos", autor.getGeneros());
+
+        collection.updateOne(Filters.eq("nombre", autor.getNombre()), new Document("$set", doc));
+    }
 }

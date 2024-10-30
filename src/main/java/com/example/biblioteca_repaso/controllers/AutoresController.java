@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -90,7 +91,18 @@ public class AutoresController implements Initializable {
 
     @FXML
     void OnActualizarClick(ActionEvent event) {
+        if (autor_seleccionado == null) {
+            Alerta.mensajeError("Seleccione un autor de la tabla para poder modificarlo.");
+        } else {
+            autor_seleccionado.setNacionalidad(txt_nacionalidad.getText());
+            autor_seleccionado.setFecha_nacimiento(dt_fecha.getValue());
+            autor_seleccionado.setGeneros(Collections.singletonList(txt_generos.getText()));
 
+            autorCRUD.modificarAutor(autor_seleccionado);
+
+            cargarAutores();
+            Alerta.mensajeInfo("ÉXITO", "Autor modificado correctamente.");
+        }
     }
 
     @FXML
@@ -100,7 +112,7 @@ public class AutoresController implements Initializable {
             txt_nombre.setText(autor_seleccionado.getNombre());
             txt_nacionalidad.setText(autor_seleccionado.getNacionalidad());
             dt_fecha.setValue(autor_seleccionado.getFecha_nacimiento());
-            txt_generos.setText(String.join(",", autor_seleccionado.getGeneros()));
+            txt_generos.setText(String.join(", ", autor_seleccionado.getGeneros()));
         }
     }
 
