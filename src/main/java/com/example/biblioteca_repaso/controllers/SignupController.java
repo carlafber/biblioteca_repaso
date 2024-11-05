@@ -81,6 +81,7 @@ public class SignupController {
                         FXMLLoader fxmlLoader = new FXMLLoader(BibliotecaApplication.class.getResource("principal.fxml"));
                         Parent root = fxmlLoader.load();
                         PrincipalController controller = fxmlLoader.getController();
+                        controller.obtenerUsuario(usuario);
 
                         Scene scene = new Scene(root);
                         Stage stage = (Stage) bt_signup.getScene().getWindow();

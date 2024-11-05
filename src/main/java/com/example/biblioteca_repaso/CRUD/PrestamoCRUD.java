@@ -60,14 +60,12 @@ public class PrestamoCRUD {
     }*/
 
     public void insertarPrestamoPrueba() {
-        // Crear el primer préstamo
         Prestamo prestamo1 = new Prestamo("El coronel no tiene quien le escriba",
                 new Usuario("Carlos Pérez", "carlos.perez@example.com"),
                 LocalDate.parse("2024-04-01", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                 LocalDate.parse("2024-04-15", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                 true);
 
-        // Crear el segundo préstamo
         Prestamo prestamo2 = new Prestamo("Cien años de soledad",
                 new Usuario("Ana Rodríguez", "ana.rodriguez@example.com"),
                 LocalDate.parse("2024-11-05", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
@@ -126,7 +124,14 @@ public class PrestamoCRUD {
 
             return new Prestamo(titulo, usuario, fecha_prestamo, fecha_devolucion, devuelto);
         }
+        return null;
+    }
 
-        return null; // Si no se encuentra el préstamo
+    public void modificarPrestamo(Prestamo prestamo) {
+        /*Document doc = new Document("nacionalidad", autor.getNacionalidad())
+                .append("fecha_nacimiento", autor.getFecha_nacimiento_string())
+                .append("generos", autor.getGeneros());
+
+        collection.updateOne(Filters.eq("nombre", autor.getNombre()), new Document("$set", doc));*/
     }
 }

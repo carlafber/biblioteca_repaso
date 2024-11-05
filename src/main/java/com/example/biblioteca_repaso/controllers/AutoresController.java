@@ -22,10 +22,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class AutoresController implements Initializable {
     @FXML
@@ -95,8 +92,7 @@ public class AutoresController implements Initializable {
         } else {
             autor_seleccionado.setNacionalidad(txt_nacionalidad.getText());
             autor_seleccionado.setFecha_nacimiento(dt_fecha.getValue());
-            autor_seleccionado.setGeneros(Collections.singletonList(txt_generos.getText()));
-
+            autor_seleccionado.setGeneros(new ArrayList<>(Arrays.asList(txt_generos.getText().split(", "))));
             autorCRUD.modificarAutor(autor_seleccionado);
 
             cargarAutores();
@@ -140,7 +136,7 @@ public class AutoresController implements Initializable {
             Alerta.mensajeError("Complete todos los campos, por favor.");
         } else {
             String genero_seleccionado = txt_generos.getText();
-            List<String> generos = Arrays.asList(genero_seleccionado.split(","));
+            List<String> generos = Arrays.asList(genero_seleccionado.split(", "));
             Autor autor_nuevo = new Autor(txt_nombre.getText(), txt_nacionalidad.getText(), dt_fecha.getValue(), generos);
             if (autorCRUD.insertarAutor(autor_nuevo)) {
                 cargarAutores();

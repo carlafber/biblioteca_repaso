@@ -88,12 +88,27 @@ private Button bt_actualizar;
 
     @FXML
     void OnActualizarClick(ActionEvent event) {
-
+        if(prestamo_seleccionado == null){
+            Alerta.mensajeError("Seleccione un préstamo de la tabla para poder modificarlo.");
+        } else {
+            prestamo_seleccionado.setLibro(cb_libros.getValue());
+            prestamo_seleccionado.setUsuario(usuario);
+            prestamo_seleccionado.setFecha_prestamo(dt_fprestamo.getValue());
+            prestamo_seleccionado.setFecha_devolucion(dt_fdevolucion.getValue());
+            if(prestamo_seleccionado.getFecha_devolucion().isBefore(LocalDate.now())){
+                prestamo_seleccionado.setDevuelto(true);
+            } else {
+                prestamo_seleccionado.setDevuelto(false);
+            }
+            prestamoCRUD.modificarPrestamo(prestamo_seleccionado);
+            cargarPrestamos(usuario);
+            Alerta.mensajeInfo("ÉXITO", "Préstamo modificado correctamente.");
+        }
     }
 
     @FXML
     void OnCancelarClick(ActionEvent event) {
-
+        limpiarCampos();
     }
 
     @FXML
@@ -174,5 +189,14 @@ private Button bt_actualizar;
     public void cargarPrestamos(Usuario usuario){
         prestamos = prestamoCRUD.obtenerPrestamos(usuario);
         tv_prestamos.getItems().setAll(prestamos);
+        if(prestamos.isEmpty()){
+            Alerta.mensajeError("Este usuario no ha realizado ningún préstamo.");
+        }
+    }
+
+    public void limpiarCampos(){
+        cb_libros.setValue(null);
+        dt_fprestamo.setValue(null);
+        dt_fdevolucion.setValue(null);
     }
 }
