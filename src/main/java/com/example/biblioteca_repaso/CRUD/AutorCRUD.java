@@ -50,11 +50,17 @@ public class AutorCRUD {
     }
 
     public void insertarAutorPrueba() {
-        Autor autor1 = new Autor("Gabriel García Márquez", "Colombiana", LocalDate.of(1927, 3, 6), Arrays.asList("Realismo Mágico", "Novela"));
-        Autor autor2 = new Autor("George Orwell", "Británica", LocalDate.of(1903, 6, 25), Arrays.asList("Distopía", "Ensayo"));
+        Autor[] autores = {
+                new Autor("Gabriel García Márquez", "Colombiana", LocalDate.of(1927, 3, 6), Arrays.asList("Realismo Mágico", "Novela")),
+                new Autor("George Orwell", "Británica", LocalDate.of(1903, 6, 25), Arrays.asList("Distopía", "Ensayo")),
+                new Autor("Agatha Christie", "Británica", LocalDate.of(1890, 9, 15), Arrays.asList("Policiaco", "Suspense")),
+                new Autor("Elvira Sastre", "Española", LocalDate.of(1992, 6, 17), Arrays.asList("Poesía", "Novela")),
+                new Autor("Eloy Morenoe", "Española", LocalDate.of(1976, 1, 12), Arrays.asList("Novela", "Cuento", "Relato corto")),
+        };
 
-        insertarAutor(autor1);
-        insertarAutor(autor2);
+        for(Autor autor : autores){
+            insertarAutor(autor);
+        }
     }
 
     public boolean insertarAutor(Autor autor) {

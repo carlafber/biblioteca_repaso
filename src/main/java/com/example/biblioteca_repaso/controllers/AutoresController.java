@@ -186,7 +186,6 @@ public class AutoresController implements Initializable {
         libroCRUD = new LibroCRUD();
         prestamoCRUD = new PrestamoCRUD();
         autorCRUD.AutorCRUD();
-        libroCRUD.LibroCRUD();
         prestamoCRUD.PrestamoCRUD();
     }
 

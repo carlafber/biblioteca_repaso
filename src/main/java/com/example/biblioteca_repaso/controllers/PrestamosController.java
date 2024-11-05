@@ -118,7 +118,19 @@ private Button bt_actualizar;
 
     @FXML
     void OnNuevoClick(ActionEvent event) {
-
+        if(cb_libros.getValue() == null || dt_fprestamo.getValue() == null ||dt_fdevolucion.getValue() == null){
+            Alerta.mensajeError("Complete todos los campos, por favor.");
+        } else {
+            boolean devuelto = dt_fdevolucion.getValue().isBefore(LocalDate.now());
+            Prestamo prestamo_nuevo = new Prestamo(cb_libros.getValue(), usuario, dt_fprestamo.getValue(), dt_fdevolucion.getValue(), devuelto);
+            if (prestamoCRUD.insertarPrestamo(prestamo_nuevo)) {
+                System.out.println(prestamo_nuevo);
+                cargarPrestamos(usuario);
+                cargarLibros();
+                Alerta.mensajeInfo("ÉXITO", "Préstamo insertado correctamente.");
+                limpiarCampos();
+            }
+        }
     }
 
     @FXML
@@ -171,8 +183,7 @@ private Button bt_actualizar;
             return new SimpleStringProperty(prestamo.getFecha_devolucion_string());
         });
 
-        List<String> libros = libroCRUD.obtenerNombreLibros();
-        cb_libros.setItems(FXCollections.observableArrayList(libros));
+        cargarLibros();
 
         tv_prestamos.setOnMouseClicked(this::OnPrestamoClick);
     }
@@ -182,7 +193,6 @@ private Button bt_actualizar;
         libroCRUD = new LibroCRUD();
         prestamoCRUD = new PrestamoCRUD();
         autorCRUD.AutorCRUD();
-        libroCRUD.LibroCRUD();
         prestamoCRUD.PrestamoCRUD();
     }
 
@@ -192,6 +202,11 @@ private Button bt_actualizar;
         if(prestamos.isEmpty()){
             Alerta.mensajeError("Este usuario no ha realizado ningún préstamo.");
         }
+    }
+
+    public void cargarLibros(){
+        List<String> libros = libroCRUD.obtenerNombreLibros();
+        cb_libros.setItems(FXCollections.observableArrayList(libros));
     }
 
     public void limpiarCampos(){

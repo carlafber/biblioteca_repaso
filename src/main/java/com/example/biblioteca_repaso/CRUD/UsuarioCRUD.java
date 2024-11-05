@@ -40,8 +40,9 @@ public class UsuarioCRUD {
     }
 
     public void insertarUsuariosPrueba() {
-        Usuario usuario1 = new Usuario("Carlos Pérez", "carlos.perez@example.com", "1234");
-        Usuario usuario2 = new Usuario("Ana Rodríguez", "ana.rodriguez@example.com", "Ana1999");
+        Usuario usuario1 = new Usuario("Carlos Pérez", "carlos.p@email.com", "1234");
+        Usuario usuario2 = new Usuario("Ana Rodríguez", "ana.rdgz@email.com", "Ana1999");
+
         insertarUsuario(usuario1);
         insertarUsuario(usuario2);
     }

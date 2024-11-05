@@ -17,7 +17,6 @@ import com.mongodb.client.model.Filters;
 import org.bson.Document;
 
 import java.time.LocalDate;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,27 +59,32 @@ public class PrestamoCRUD {
     }*/
 
     public void insertarPrestamoPrueba() {
-        Prestamo prestamo1 = new Prestamo("El coronel no tiene quien le escriba",
-                new Usuario("Carlos Pérez", "carlos.perez@example.com"),
-                LocalDate.parse("2024-04-01", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                LocalDate.parse("2024-04-15", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                true);
+        Prestamo[] prestamos = {
+                new Prestamo("El coronel no tiene quien le escriba",
+                        new Usuario("Carlos Pérez", "carlos.perez@example.com"),
+                        LocalDate.parse("2024-04-01", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                        LocalDate.parse("2024-04-15", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                        true),
 
-        Prestamo prestamo2 = new Prestamo("Cien años de soledad",
-                new Usuario("Ana Rodríguez", "ana.rodriguez@example.com"),
-                LocalDate.parse("2024-11-05", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                LocalDate.parse("2024-12-19", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                false);
+                new Prestamo("Cien años de soledad",
+                        new Usuario("Ana Rodríguez", "ana.rodriguez@example.com"),
+                        LocalDate.parse("2024-11-05", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                        LocalDate.parse("2024-12-19", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                        false),
 
-        insertarPrestamo(prestamo1);
-        insertarPrestamo(prestamo2);
+                new Prestamo("Diez negritos",
+                        new Usuario("Ana Rodríguez", "ana.rdgz@email.com"),
+                        LocalDate.parse("2024-09-30", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                        LocalDate.parse("2024-11-01", DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                        true)
+        };
+
+        for (Prestamo prestamo : prestamos) {
+            insertarPrestamo(prestamo);
+        }
     }
 
     public boolean insertarPrestamo(Prestamo prestamo) {
-        /*boolean devuelto = prestamo.getFecha_devolucion().isBefore(LocalDate.now());
-
-        prestamo.setDevuelto(devuelto);*/
-
         usuarioDoc = new Document("nombre", prestamo.getUsuario().getNombre())
                 .append("email", prestamo.getUsuario().getEmail());
 
@@ -92,8 +96,8 @@ public class PrestamoCRUD {
 
         collection.insertOne(doc);
 
-        /*LibroCRUD libroCRUD = new LibroCRUD();
-        libroCRUD.modificarDisponibilidad(prestamo.getLibro(), devuelto);*/
+        LibroCRUD libroCRUD = new LibroCRUD();
+        libroCRUD.modificarDisponibilidad(prestamo.getLibro(), prestamo.isDevuelto());
         return true;
     }
 

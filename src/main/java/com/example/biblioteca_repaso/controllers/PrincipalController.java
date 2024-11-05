@@ -133,7 +133,6 @@ public class PrincipalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         libroCRUD = new LibroCRUD();
-        libroCRUD.LibroCRUD();
         tc_titulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
         tc_autor.setCellValueFactory(new PropertyValueFactory<>("autor"));
         tc_estado.setCellValueFactory(cellData -> {Libro libro = cellData.getValue();

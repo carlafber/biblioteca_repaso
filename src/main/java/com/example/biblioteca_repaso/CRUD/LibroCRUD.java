@@ -20,7 +20,7 @@ public class LibroCRUD {
     private String json;
     private Document doc;
 
-    public void LibroCRUD(){
+    public  LibroCRUD(){
         try {
             con = Conectar.conectar();
 
@@ -55,13 +55,18 @@ public class LibroCRUD {
 
 
     public void insetarLibroPrueba() {
-        Libro libro1 = new Libro("Cien años de soledad", "Gabriel García Márquez", 1967, false, "Realismo Mágico");
-        Libro libro2 = new Libro("1984", "George Orwell", 1949, true, "Distopía");
-        Libro libro3 = new Libro("El coronel no tiene quien le escriba", "Gabriel García Márquez", 1961, true, "Novela");
+        Libro[] libros = {
+                new Libro("Cien años de soledad", "Gabriel García Márquez", 1967, false, "Realismo Mágico"),
+                new Libro("1984", "George Orwell", 1949, true, "Distopía"),
+                new Libro("El coronel no tiene quien le escriba", "Gabriel García Márquez", 1961, true, "Novela"),
+                new Libro("Diez negritos", "Agatha Christie", 1939, true, "Policiaco"),
+                new Libro("Asesinato en el Orient Express", "Agatha Christie", 1934, true, "Suspense"),
+                new Libro("Días sin ti", "Elvira Sastre", 2019, true, "Novela")
+        };
 
-        insertarLibro(libro1);
-        insertarLibro(libro2);
-        insertarLibro(libro3);
+        for (Libro libro : libros) {
+            insertarLibro(libro);
+        }
     }
 
 

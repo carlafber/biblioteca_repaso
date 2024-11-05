@@ -203,7 +203,6 @@ public class LibrosController implements Initializable {
         libroCRUD = new LibroCRUD();
         prestamoCRUD = new PrestamoCRUD();
         autorCRUD.AutorCRUD();
-        libroCRUD.LibroCRUD();
         prestamoCRUD.PrestamoCRUD();
     }
 

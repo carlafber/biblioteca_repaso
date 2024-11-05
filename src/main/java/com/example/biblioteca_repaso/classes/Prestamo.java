@@ -70,12 +70,16 @@ public class Prestamo {
 
     @Override
     public String toString() {
-        return "Prestamo{" +
+        return "\"" + libro + "\", new Usuario(\"" + usuario.getNombre() + "\", \"" + usuario.getEmail() +
+                "\"), LocalDate.parse(\"" + getFecha_prestamo() + "\", DateTimeFormatter.ofPattern(\"yyyy-MM-dd\")), LocalDate.parse(\"" +
+                getFecha_devolucion() + "\", DateTimeFormatter.ofPattern(\"yyyy-MM-dd\")), " + devuelto;
+
+        /*return "Prestamo{" +
                 "libro=" + libro +
                 ", usuario=" + usuario +
                 ", fechaPrestamo=" + getFecha_prestamo_string() +
                 ", fechaDevolucion=" + getFecha_devolucion_string() +
                 ", devuelto=" + devuelto +
-                '}';
+                '}';*/
     }
 }
