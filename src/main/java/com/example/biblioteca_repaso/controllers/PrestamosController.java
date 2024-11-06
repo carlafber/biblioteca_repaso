@@ -200,7 +200,7 @@ private Button bt_actualizar;
         prestamos = prestamoCRUD.obtenerPrestamos(usuario);
         tv_prestamos.getItems().setAll(prestamos);
         if(prestamos.isEmpty()){
-            Alerta.mensajeError("Este usuario no ha realizado ningún préstamo.");
+            Alerta.mensajeInfo("INFO","Este usuario no ha realizado ningún préstamo.");
         }
     }
 
