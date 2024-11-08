@@ -1,9 +1,12 @@
 package com.example.biblioteca_repaso.classes;
 
+import org.bson.types.ObjectId;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Prestamo {
+    private ObjectId id;
     private String libro;
     private Usuario usuario;
     private LocalDate fecha_prestamo;
@@ -18,6 +21,23 @@ public class Prestamo {
         this.fecha_prestamo = fecha_prestamo;
         this.fecha_devolucion = fecha_devolucion;
         this.devuelto = devuelto;
+    }
+
+    public Prestamo(ObjectId id, String libro, Usuario usuario, LocalDate fecha_prestamo, LocalDate fecha_devolucion, boolean devuelto) {
+        this.id = id;
+        this.libro = libro;
+        this.usuario = usuario;
+        this.fecha_prestamo = fecha_prestamo;
+        this.fecha_devolucion = fecha_devolucion;
+        this.devuelto = devuelto;
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     public String getLibro() {

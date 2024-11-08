@@ -100,6 +100,7 @@ private Button bt_actualizar;
             } else {
                 prestamo_seleccionado.setDevuelto(false);
             }
+            //¡¡¡¡¡¡¡¡¡
             prestamoCRUD.modificarPrestamo(prestamo_seleccionado);
             cargarPrestamos(usuario);
             Alerta.mensajeInfo("ÉXITO", "Préstamo modificado correctamente.");

@@ -55,7 +55,7 @@ public class AutorCRUD {
                 new Autor("George Orwell", "Británica", LocalDate.of(1903, 6, 25), Arrays.asList("Distopía", "Ensayo")),
                 new Autor("Agatha Christie", "Británica", LocalDate.of(1890, 9, 15), Arrays.asList("Policiaco", "Suspense")),
                 new Autor("Elvira Sastre", "Española", LocalDate.of(1992, 6, 17), Arrays.asList("Poesía", "Novela")),
-                new Autor("Eloy Morenoe", "Española", LocalDate.of(1976, 1, 12), Arrays.asList("Novela", "Cuento", "Relato corto")),
+                new Autor("Eloy Moreno", "Española", LocalDate.of(1976, 1, 12), Arrays.asList("Novela", "Cuento", "Relato corto")),
         };
 
         for(Autor autor : autores){
