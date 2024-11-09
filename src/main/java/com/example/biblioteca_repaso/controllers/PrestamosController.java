@@ -101,6 +101,15 @@ private Button bt_actualizar;
                 prestamo_seleccionado.setDevuelto(false);
             }
             //¡¡¡¡¡¡¡¡¡
+
+            System.out.println("Actualizando préstamo con ID: " + prestamo_seleccionado.getId());
+            System.out.println("Nuevo libro: " + prestamo_seleccionado.getLibro());
+            System.out.println("Nuevo usuario: " + prestamo_seleccionado.getUsuario().getNombre());
+            System.out.println("Fecha de préstamo: " + prestamo_seleccionado.getFecha_prestamo_string());
+            System.out.println("Fecha de devolución: " + prestamo_seleccionado.getFecha_devolucion_string());
+            System.out.println("Devuelto: " + prestamo_seleccionado.isDevuelto());
+
+
             prestamoCRUD.modificarPrestamo(prestamo_seleccionado);
             cargarPrestamos(usuario);
             Alerta.mensajeInfo("ÉXITO", "Préstamo modificado correctamente.");
@@ -203,6 +212,7 @@ private Button bt_actualizar;
         if(prestamos.isEmpty()){
             Alerta.mensajeInfo("INFO","Este usuario no ha realizado ningún préstamo.");
         }
+        System.out.println(prestamos);
     }
 
     public void cargarLibros(){
